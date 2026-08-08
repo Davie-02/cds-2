@@ -4,7 +4,7 @@
       "name": "Beginner Course",
       "price": "MK 180,000",
       "description": "For learners starting from zero experience behind the wheel.",
-      "featured": false,
+      "featured": true,
       "features": [
         "20 practical driving lessons (1 hour each)",
         "4 highway code & theory classes",
@@ -30,7 +30,7 @@
       "name": "Refresher Course",
       "price": "MK 90,000",
       "description": "For licensed drivers who want to rebuild confidence and skills.",
-      "featured": false,
+      "featured": true,
       "features": [
         "8 practical driving lessons",
         "Defensive driving techniques",
