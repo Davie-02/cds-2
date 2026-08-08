@@ -1,0 +1,13 @@
+{
+  "items": [
+    { "image": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80", "alt": "Instructor guiding a student beside a car" },
+    { "image": "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80", "alt": "Student practicing on a quiet training road" },
+    { "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80", "alt": "Close-up of hands on a steering wheel" },
+    { "image": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=600&q=80", "alt": "Driving school car parked in the training yard" },
+    { "image": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80", "alt": "Graduate holding a completion certificate" },
+    { "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80", "alt": "View of the open road from the driver's seat" },
+    { "image": "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=600&q=80", "alt": "Two instructors reviewing a lesson plan" },
+    { "image": "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&q=80", "alt": "Student and instructor smiling after a lesson" },
+    { "image": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80", "alt": "Dashboard view during a practical lesson" }
+  ]
+}

@@ -1,0 +1,110 @@
+# Decap CMS configuration
+# ---------------------------------------------------------------------
+# This file tells the /admin content manager what content exists and
+# what fields it should show as an editing form. Every collection below
+# points at one of the JSON files in /data, which is what the website's
+# JavaScript (js/script.js) reads to render pages.
+#
+# You should not need to edit this file for day-to-day content updates —
+# only if you want to add a brand-new type of content later.
+# ---------------------------------------------------------------------
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded photos are stored in the repo, and the URL path the
+# website uses to reach them.
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+
+  - name: "announcements"
+    label: "News & Announcements"
+    files:
+      - name: "announcements"
+        label: "Announcements"
+        file: "data/announcements.json"
+        fields:
+          - label: "Posts"
+            name: "items"
+            widget: "list"
+            label_singular: "Announcement"
+            summary: "{{title}} — {{date}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Body", name: "body", widget: "text" }
+
+  - name: "testimonials"
+    label: "Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "data/testimonials.json"
+        fields:
+          - label: "Testimonials"
+            name: "items"
+            widget: "list"
+            label_singular: "Testimonial"
+            summary: "{{name}} — {{stars}}★"
+            fields:
+              - { label: "Student name", name: "name", widget: "string" }
+              - { label: "Rating (1–5)", name: "stars", widget: "number", value_type: "int", min: 1, max: 5, default: 5 }
+              - { label: "Quote", name: "quote", widget: "text" }
+
+  - name: "instructors"
+    label: "Instructors"
+    files:
+      - name: "instructors"
+        label: "Instructors"
+        file: "data/instructors.json"
+        fields:
+          - label: "Instructors"
+            name: "items"
+            widget: "list"
+            label_singular: "Instructor"
+            summary: "{{name}} — {{role}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / title", name: "role", widget: "string" }
+              - { label: "Short bio", name: "bio", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image" }
+
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - name: "gallery"
+        label: "Gallery"
+        file: "data/gallery.json"
+        fields:
+          - label: "Photos"
+            name: "items"
+            widget: "list"
+            label_singular: "Photo"
+            summary: "{{alt}}"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Description (for accessibility)", name: "alt", widget: "string" }
+
+  - name: "courses"
+    label: "Courses & Pricing"
+    files:
+      - name: "courses"
+        label: "Courses"
+        file: "data/courses.json"
+        fields:
+          - label: "Courses"
+            name: "items"
+            widget: "list"
+            label_singular: "Course"
+            summary: "{{name}} — {{price}}"
+            fields:
+              - { label: "Course name", name: "name", widget: "string" }
+              - { label: "Price (as shown, e.g. MK 180,000)", name: "price", widget: "string" }
+              - { label: "Short description", name: "description", widget: "text" }
+              - { label: "Highlight as 'Most Popular'", name: "featured", widget: "boolean", default: false }
+              - label: "Included features (one per line)"
+                name: "features"
+                widget: "list"

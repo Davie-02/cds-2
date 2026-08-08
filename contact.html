@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact &amp; Booking — Chimwemwe Driving School</title>
+  <meta name="description" content="Book your first driving lesson or get in touch with Chimwemwe Driving School." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="brand__mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f5c344" stroke-width="2"><path d="M3 13l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/><circle cx="7.5" cy="17" r="1"/><circle cx="16.5" cy="17" r="1"/></svg>
+        </span>
+        Chimwemwe Driving School
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Courses</a>
+        <a href="instructors.html">Instructors</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Contact</span>
+      <h1>Let's get you booked in.</h1>
+      <p>Fill in the form below, call us, or visit either branch. We usually reply within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2" style="align-items:flex-start;">
+
+      <!-- ================= CONTACT FORM ================= -->
+      <div class="card">
+        <h2 style="margin-bottom:1rem;">Book a lesson</h2>
+
+        <!--
+          FORM SETUP (read this if you're customising the site):
+          This form posts to Formspree, a free form-backend service —
+          perfect for a static site with no server of its own.
+          1. Go to https://formspree.io and create a free account
+          2. Create a new form, copy the endpoint it gives you
+             (it looks like https://formspree.io/f/abcd1234)
+          3. Replace YOUR_FORM_ID below with that endpoint
+          Until you do, the form will just show a "demo mode" message
+          instead of actually sending anywhere — see js/script.js.
+        -->
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-validate novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Grace Mwale" required />
+            <small class="error">Please enter your full name.</small>
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="e.g. grace@email.com" required />
+            <small class="error">Please enter a valid email address.</small>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 0999 123 456" required />
+            <small class="error">Please enter a valid phone number.</small>
+          </div>
+
+          <div class="field">
+            <label for="course">Course interested in</label>
+            <select id="course" name="course" required>
+              <option value="">Select a course</option>
+              <option>Beginner Course</option>
+              <option>Standard + Test Support</option>
+              <option>Refresher Course</option>
+              <option>Motorcycle Course</option>
+              <option>Not sure yet</option>
+            </select>
+            <small class="error">Please choose a course.</small>
+          </div>
+
+          <div class="field">
+            <label for="branch">Preferred branch</label>
+            <select id="branch" name="branch" required>
+              <option value="">Select a branch</option>
+              <option>Lilongwe — Area 47</option>
+              <option>Blantyre — Ginnery Corner</option>
+            </select>
+            <small class="error">Please choose a branch.</small>
+          </div>
+
+          <div class="field">
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us about your schedule, experience level, or any questions."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Send Booking Request</button>
+          <p class="form-note">We'll reply by email or phone within one business day to confirm your first lesson.</p>
+        </form>
+      </div>
+
+      <!-- ================= LOCATION / DETAILS ================= -->
+      <div>
+        <h2 style="margin-bottom:1rem;">Visit or call us</h2>
+        <div class="card" style="margin-bottom:1rem;">
+          <h3>Lilongwe Branch</h3>
+          <p>Area 47, Sector 3, Lilongwe, Malawi</p>
+          <p>+265 999 123 456</p>
+          <p>Mon–Sat, 7:00–17:00</p>
+        </div>
+        <div class="card" style="margin-bottom:1rem;">
+          <h3>Blantyre Branch</h3>
+          <p>Ginnery Corner, Blantyre, Malawi</p>
+          <p>+265 888 654 321</p>
+          <p>Mon–Sat, 7:00–17:00</p>
+        </div>
+        <div class="card">
+          <h3>Find us on the map</h3>
+          <iframe
+            title="Map showing Chimwemwe Driving School Lilongwe branch"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=33.75%2C-13.99%2C33.80%2C-13.94&layer=mapnik"
+            style="width:100%; height:260px; border:0; border-radius:8px; margin-top:0.5rem;"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h4>Chimwemwe Driving School</h4>
+          <p>Teaching safe, confident drivers across Lilongwe and Blantyre since 2013.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Courses &amp; Pricing</a></li>
+            <li><a href="instructors.html">Our Instructors</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="testimonials.html">Testimonials</a></li>
+            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="services.html#faq">FAQs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>Area 47, Lilongwe, Malawi</li>
+            <li>+265 999 123 456</li>
+            <li>hello@chimwemwedriving.mw</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Chimwemwe Driving School. All rights reserved.</span>
+        <span>Built as a learning project with HTML, CSS &amp; JavaScript.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
