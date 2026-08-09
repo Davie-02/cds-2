@@ -1,8 +1,32 @@
 {
   "items": [
-    { "name": "Chikondi Phiri", "role": "Lead Instructor", "bio": "11 years teaching. Specialises in nervous first-time learners.", "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80" },
-    { "name": "Thandiwe Banda", "role": "Senior Instructor", "bio": "8 years teaching. Runs our defensive driving clinics.", "photo": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=500&q=80" },
-    { "name": "Mphatso Chirwa", "role": "Instructor", "bio": "5 years teaching. Handles our motorcycle course.", "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80" },
-    { "name": "Esther Nyirenda", "role": "Instructor", "bio": "4 years teaching. Leads test-day escort sessions.", "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80" }
+    {
+      "name": "Chikondi Phiri",
+      "role": "Lead Instructor",
+      "bio": "11 years teaching. Specialises in nervous first-time learners.",
+      "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Thandiwe Banda",
+      "role": "Senior Instructor",
+      "bio": "8 years teaching. Runs our defensive driving clinics.",
+      "photo": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Mphatso Chirwa",
+      "role": "Instructor",
+      "bio": "5 years teaching. Handles our motorcycle course.",
+      "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Esther Nyirenda",
+      "role": "Instructor",
+      "bio": "4 years teaching. Leads test-day escort sessions.",
+      "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80",
+      "published": true
+    }
   ]
 }

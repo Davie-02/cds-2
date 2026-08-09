@@ -3,22 +3,20 @@
     {
       "title": "September intake now open",
       "date": "2026-08-01",
-      "body": "Our next Beginner Course intake starts 1 September. Spaces are limited to 15 learners per group — book early to secure a morning slot."
+      "body": "Our next Beginner Course intake starts 1 September. Spaces are limited to 15 learners per group \u2014 book early to secure a morning slot.",
+      "published": true
     },
     {
       "title": "New evening slots in Blantyre",
       "date": "2026-07-15",
-      "body": "By popular request, the Blantyre branch now offers 17:30–18:30 lessons on weekdays for learners who work during the day."
+      "body": "By popular request, the Blantyre branch now offers 17:30\u201318:30 lessons on weekdays for learners who work during the day.",
+      "published": true
     },
     {
       "title": "Motorcycle course now includes night riding practice",
       "date": "2026-06-20",
-      "body": "We've extended the Motorcycle Course to include a supervised night-riding session, covering visibility and hazard awareness after dark."
-    },
-    {
-      "title": "Testing",
-      "date": "2026-08-09",
-      "body": "Does it work?\nLearning to drive is an important milestone that opens doors to independence, employment, and personal growth. At Chimwemwe Driving School, we provide professional driving lessons tailored to beginners and experienced drivers alike."
+      "body": "We've extended the Motorcycle Course to include a supervised night-riding session, covering visibility and hazard awareness after dark.",
+      "published": true
     }
   ]
 }

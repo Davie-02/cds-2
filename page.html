@@ -3,13 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Testimonials — Chimwemwe Driving School2</title>
-  <meta name="description" content="Read what graduates of Chimwemwe Driving School2 say about their lessons and results." />
+  <!--
+    This is a GENERIC page template — one file that can display ANY page
+    created through the CMS's "Pages" collection at /admin, without you
+    writing a new .html file for each one.
+
+    How it works:
+    1. New pages are opened as  page.html?slug=your-page-slug
+       (the part after "?slug=" is the file name, minus ".json, that the
+       CMS saved under data/pages/ — e.g. data/pages/privacy-policy.json
+       is opened as page.html?slug=privacy-policy)
+    2. js/script.js reads that slug from the URL, fetches the matching
+       JSON file, and fills in the <title>, heading and body below.
+    3. The body text is written in Markdown (like **bold** or ## Heading)
+       inside the CMS, and converted to HTML in the browser.
+
+    IMPORTANT LIMITATION (kept simple on purpose):
+    Creating a page in the CMS does NOT automatically add a link to it in
+    the site's navigation menu — plain static HTML has no way to "ask" the
+    server what pages exist. After publishing a new page in the CMS, add
+    one link to it by hand wherever you want it to appear, e.g.:
+      <a href="page.html?slug=your-page-slug">Your Page Title</a>
+    This keeps the whole project buildable with zero server/backend code.
+  -->
+  <title>Loading… — Chimwemwe Driving School2</title>
+  <meta name="description" content="" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Basic styling for rendered Markdown content, scoped to this page only */
+    .page-content h2 { margin-top: 1.6em; margin-bottom: 0.5em; }
+    .page-content h2:first-child { margin-top: 0; }
+    .page-content p, .page-content ul, .page-content ol { margin-bottom: 1em; color: var(--color-ink-soft); }
+    .page-content ul, .page-content ol { padding-left: 1.4em; }
+    .page-content strong { color: var(--color-ink); }
+    .page-content a { color: var(--color-stop); text-decoration: underline; }
+  </style>
 </head>
 <body>
 
@@ -39,25 +71,19 @@
 
   <section class="page-hero">
     <div class="container">
-      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Testimonials</span>
-      <h1>3,400+ graduates. Here's what a few of them say.</h1>
+      <!-- Filled in by js/script.js (renderCustomPage) once the page data loads -->
+      <h1 id="page-title">Loading…</h1>
     </div>
   </section>
 
   <section class="section">
-    <!-- Populated from data/testimonials.json by js/script.js (renderTestimonialsGrid) -->
-    <div class="container grid grid--3" id="testimonials-grid"></div>
-  </section>
-
-  <div class="cta-band">
-    <div class="container">
-      <div>
-        <h3>Ready to write your own success story?</h3>
-        <p>Join our next intake this month.</p>
+    <div class="container" style="max-width:760px;">
+      <!-- Filled in by js/script.js (renderCustomPage) with the converted Markdown body -->
+      <div class="page-content" id="page-body">
+        <p>Loading page content…</p>
       </div>
-      <a href="contact.html" class="btn btn--dark">Book Your First Lesson</a>
     </div>
-  </div>
+  </section>
 
   <footer class="site-footer">
     <div class="container">
@@ -87,7 +113,6 @@
         </div>
         <div>
           <h4>Contact</h4>
-          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
           <ul id="footer-contact">
             <li>Area 47, Lilongwe, Malawi</li>
             <li>+265 999 123 456</li>

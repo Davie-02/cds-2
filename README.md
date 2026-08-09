@@ -1,4 +1,4 @@
-# Chimwemwe Driving School — Website
+# Chimwemwe Driving School2 — Website
 
 A responsive, multi-page website for a driving school, built as a **learning project**
 with plain HTML, CSS and JavaScript. No frameworks, no build tools, no npm install —
@@ -27,30 +27,43 @@ a framework will feel like a natural next step rather than a mystery box.
 
 ```
 chimwemwe-driving-school/
-├── index.html            Home page
-├── about.html             About Us page
-├── services.html          Courses & pricing + FAQ
-├── instructors.html       Meet the instructors
-├── gallery.html           Photo gallery
-├── testimonials.html      Full testimonials page
-├── contact.html           Contact form + map
+├── index.html             Home page
+├── about.html              About Us page
+├── services.html           Courses & pricing + FAQ
+├── instructors.html        Meet the instructors
+├── gallery.html             Photo gallery
+├── testimonials.html        Full testimonials page
+├── contact.html             Contact form + map
+├── page.html                 Generic template for CMS-created custom pages
 ├── css/
-│   └── style.css          ALL styling for every page (one shared file)
+│   └── style.css            ALL styling for every page (one shared file)
 ├── js/
-│   └── script.js          ALL interactivity + CMS content rendering (one shared file)
-├── data/                  Editable content, as JSON — this is what the CMS edits
+│   └── script.js             ALL interactivity + CMS content rendering (one shared file)
+├── data/                     Editable content, as JSON — this is what the CMS edits
+│   ├── settings.json          Site branding, theme colours, contact info
 │   ├── testimonials.json
 │   ├── instructors.json
 │   ├── gallery.json
 │   ├── courses.json
-│   └── announcements.json
-├── admin/                 The /admin content manager (Decap CMS)
+│   ├── announcements.json
+│   └── pages/                 One JSON file per custom page (e.g. privacy-policy.json)
+├── admin/                    The /admin content manager (Decap CMS)
 │   ├── index.html
 │   └── config.yml
 ├── images/
-│   └── uploads/           Photos uploaded through the CMS land here automatically
-└── README.md              This file
+│   ├── logo.png               The school's real logo (transparent background)
+│   ├── favicon.png            Browser tab icon
+│   └── uploads/                Photos uploaded through the CMS land here automatically
+└── README.md                 This file
 ```
+
+**A note on the logo artwork:** every page, the footer, and all data files now say
+"Chimwemwe Driving School2" as requested. The logo image itself (`images/logo.png`)
+is your original uploaded artwork, which reads "Chimwemwe Driving School" (no "2") —
+image text can't be safely auto-edited without redesigning the graphic, so if you want
+the "2" reflected in the artwork itself, that needs a small update from whoever
+designed the logo (or re-uploading a new version through the CMS's Site Settings →
+Logo field once you have one).
 
 **Why one shared CSS file and one shared JS file, instead of per-page files?**
 For a site this size, one file is easier to search, easier to keep consistent (change
@@ -170,25 +183,23 @@ billing, none of which this project needs.
 
 ## 6. Managing content with the CMS
 
-The site now includes a free, form-based content manager at **`/admin`**, powered by
-[Decap CMS](https://decapcms.org) (open source, formerly Netlify CMS). It lets you (or
-anyone you invite) edit testimonials, instructors, gallery photos, courses, and
-news/announcements from a web form — no code editing, no Git commands.
+The site includes a free, form-based content manager at **`/admin`**, powered by
+[Decap CMS](https://decapcms.org) (open source, formerly Netlify CMS). It's grown into
+a genuinely capable editor: Markdown-formatted text, draft/review/publish workflow,
+per-item publish/unpublish switches, whole new pages, and full control over the site's
+theme colours, logo and favicon — all from a web form, no code editing required.
 
 ### How it works
 Nothing about the tech stack changed underneath — there's still no database. The CMS
-edits small JSON files in the `data/` folder (`data/testimonials.json`,
-`data/instructors.json`, `data/gallery.json`, `data/courses.json`,
-`data/announcements.json`). Each page's JavaScript (`js/script.js`) fetches the
-relevant file and builds the HTML for that section automatically. So "using the CMS"
-really means: **you fill in a form → Decap CMS commits the updated JSON file to your
-GitHub repo → the live site picks it up automatically.**
+edits small JSON files in the `data/` folder. Each page's JavaScript (`js/script.js`)
+fetches the relevant file and builds the HTML for that section automatically. So
+"using the CMS" really means:
 
 ```
-You edit in /admin  →  Decap CMS commits to GitHub  →  site re-fetches the JSON
+You edit in /admin  →  Decap CMS commits to GitHub  →  the live site re-fetches the JSON
 ```
 
-### One-time setup (about 10 minutes)
+### 6.1 One-time setup (about 10 minutes)
 Decap CMS needs somewhere to safely handle login and to commit changes to GitHub on
 your behalf, without you managing any tokens or passwords in code. The free way to do
 this is **Netlify Identity + Git Gateway**, which is exactly what it was built for —
@@ -209,26 +220,84 @@ card required).
 6. Go to **Identity → Invite users**, invite your own email address. You'll get an
    email with a link — click it, set a password.
 7. Visit `https://your-site-name.netlify.app/admin/`, log in with that email and
-   password, and you'll see the content manager.
+   password, and you'll see the content manager — with the school's own logo on the
+   login screen (set via `logo_url` in `admin/config.yml`).
 
-From then on, editing content is just: open `/admin`, click the collection (e.g.
-"Testimonials"), add/edit/delete an entry, and click **Publish**. The change goes
-live on your site within a minute or two, the same way a `git push` would.
+### 6.2 Draft, review, publish — and unpublish
+`admin/config.yml` sets `publish_mode: editorial_workflow`, which changes how saving
+works: instead of every change going live the instant you save, entries move through
+**Draft → In Review → Ready**, and only go live when you click **Publish**. This gives
+you a safe space to prepare content (e.g. next month's promotion) without it appearing
+on the site early, and a "Ready" queue if more than one person is editing.
 
-### What's editable right now
+For content that's *already* live and you want to temporarily hide, every
+Testimonial / Instructor / Gallery photo / Course / Announcement has its own
+**Published** on/off switch. Turning it off removes it from the live site immediately
+on your next publish, without deleting the entry — flip it back on any time. (Pages
+have the same switch, described below.)
+
+### 6.3 Writing with Markdown
+Longer text fields — course descriptions, announcement bodies, and page content — use
+a **Markdown** editor in the CMS, which gives you a proper toolbar (bold, italic,
+lists, links) instead of a plain text box. Behind the scenes it's still just text
+saved in the JSON file; `js/script.js` converts it to formatted HTML in the visitor's
+browser using a small library called [marked](https://marked.js.org), loaded only on
+pages that actually need it.
+
+### 6.4 Creating brand-new pages
+The **Pages** collection lets you create entirely new pages — a Privacy Policy, a
+Terms of Service, a one-off promotion page — without writing any HTML. Fill in a
+Title, a Slug (the web-address-friendly name, e.g. `about-financing`), and the page
+content in Markdown, then Publish.
+
+Your new page is live at:
+```
+your-site.com/page.html?slug=your-slug
+```
+**One manual step:** because this is a plain static site (no server to ask "what
+pages exist?"), publishing a page does *not* automatically add a link to it anywhere.
+Add one link by hand, wherever makes sense — e.g. in a page's footer:
+```html
+<a href="page.html?slug=your-slug">Your Page Title</a>
+```
+The included `privacy-policy` page (linked from every footer) is a working example of
+exactly this pattern.
+
+### 6.5 Changing the site's icon and theme colours
+The **Site Settings** collection is a control panel for the whole site's branding:
+- **Logo** and **Favicon** — upload new images here and every page updates
+  automatically (including the browser tab icon), with no HTML editing.
+- **Theme colours** — Primary, Dark, and Highlight colours. These map directly onto
+  the CSS variables every component in `css/style.css` is built from
+  (`--color-line`, `--color-asphalt`, `--color-stop`), so changing them here
+  re-colours buttons, badges, the header/footer, and more, sitewide, instantly.
+- **Contact details & branches** — phone numbers, email, and branch addresses shown
+  in the footer.
+
+### 6.6 Backups and version history
+There's no separate "backup" button to remember, because you already have two layers
+of history built in, for free:
+- **Every Netlify deploy is kept.** Under your Netlify site's **Deploys** tab, you can
+  see every published version of the site and roll back to any of them with one click.
+- **Every CMS publish is a Git commit.** Your GitHub repo's commit history is a
+  complete, permanent record of every content change — who changed what, and when —
+  and any file can be reverted from there too.
+
+### 6.7 What's editable right now
 | Collection | Powers |
 |---|---|
-| News & Announcements | The "Latest News" cards on the homepage |
-| Testimonials | The homepage slider and the full Testimonials page |
-| Instructors | The Instructors page |
-| Gallery | The Gallery page |
-| Courses & Pricing | The course cards on the homepage and Courses page |
+| ⚙️ Site Settings | Logo, favicon, theme colours, contact details, branches |
+| 📄 Pages | Any new custom page (Privacy Policy included as an example) |
+| 📰 News & Announcements | The "Latest News" cards on the homepage (Markdown) |
+| ⭐ Testimonials | The homepage slider and the full Testimonials page |
+| 🧑‍🏫 Instructors | The Instructors page |
+| 🖼️ Gallery | The Gallery page |
+| 🎓 Courses & Pricing | The course cards on the homepage and Courses page (Markdown) |
 
-Photos uploaded through the CMS (e.g. a new instructor photo) are stored in
-`images/uploads/` in your repo automatically — you don't need to touch the `images/`
-folder by hand anymore for that content.
+Photos uploaded through the CMS are stored in `images/uploads/` in your repo
+automatically — you don't need to touch the `images/` folder by hand for that content.
 
-### If you'd rather not use Netlify
+### 6.8 If you'd rather not use Netlify
 Everything above is optional — the "edit the file, `git push`" workflow from section 5
 still works exactly the same, since the CMS just edits the same JSON files you could
 edit by hand. If you skip the CMS setup, ignore the `/admin` folder entirely.
@@ -237,13 +306,13 @@ edit by hand. If you skip the CMS setup, ignore the `/admin` folder entirely.
 
 ## 7. Customising the content
 
-Everything is plain text inside the HTML files, so search-and-replace is usually all
-you need:
-- School name, phone numbers, address, prices → search each `.html` file for the
-  current placeholder text and swap it in.
-- Colours/fonts → edit the `:root { ... }` section at the top of `css/style.css`.
-- Course details → edit the `<ul>` lists inside the `.card--price` blocks in
-  `services.html` and `index.html`.
+Most day-to-day content (testimonials, instructors, gallery, courses, announcements,
+pages, theme colours, logo/favicon, contact details) is best changed through the CMS
+described in section 6. For anything not covered there:
+- Wording on the About page, or section headings → search the relevant `.html` file
+  for the current text and swap it in.
+- Fonts, spacing, or anything structural → edit `css/style.css` (see the "TOKENS"
+  section at the top for colours/fonts) or the page's HTML directly.
 
 ---
 

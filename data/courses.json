@@ -4,14 +4,15 @@
       "name": "Beginner Course",
       "price": "MK 180,000",
       "description": "For learners starting from zero experience behind the wheel.",
-      "featured": true,
+      "featured": false,
       "features": [
         "20 practical driving lessons (1 hour each)",
         "4 highway code & theory classes",
         "1 mock road test",
         "Certificate of completion",
         "Learner's permit guidance"
-      ]
+      ],
+      "published": true
     },
     {
       "name": "Standard + Test Support",
@@ -24,19 +25,21 @@
         "2 mock road tests",
         "Personal escort to your official test",
         "Free re-test lesson if needed"
-      ]
+      ],
+      "published": true
     },
     {
       "name": "Refresher Course",
       "price": "MK 90,000",
       "description": "For licensed drivers who want to rebuild confidence and skills.",
-      "featured": true,
+      "featured": false,
       "features": [
         "8 practical driving lessons",
         "Defensive driving techniques",
         "Night & highway driving practice",
         "Parallel parking & tight-space drills"
-      ]
+      ],
+      "published": true
     }
   ]
 }
