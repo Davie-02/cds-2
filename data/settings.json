@@ -14,8 +14,18 @@
     "email": "hello@chimwemwedriving.mw"
   },
   "branches": [
-    { "name": "Lilongwe Branch", "address": "Area 47, Sector 3, Lilongwe, Malawi", "phone": "+265 999 123 456", "hours": "Mon–Sat, 7:00–17:00" },
-    { "name": "Blantyre Branch", "address": "Ginnery Corner, Blantyre, Malawi", "phone": "+265 888 654 321", "hours": "Mon–Sat, 7:00–17:00" }
+    {
+      "name": "Mzuzu Branch",
+      "address": "Mchenga Utuwa, Mzuzu, Malawi",
+      "phone": "+265 999 123 456",
+      "hours": "Mon–Sat, 7:00–17:00"
+    },
+    {
+      "name": "Karonga Branch",
+      "address": "Old town roundabout, Karonga, Malawi",
+      "phone": "+265 888 654 321",
+      "hours": "Mon–Sat, 7:00–17:00"
+    }
   ],
   "social": {
     "facebook": "",
