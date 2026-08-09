@@ -199,24 +199,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.7em;
   font-family: var(--font-display);
   font-size: 1.25rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
-.brand__mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  background: var(--color-asphalt);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.brand__logo {
+  height: 52px;
+  width: auto;
   flex-shrink: 0;
 }
-.brand__mark svg { width: 22px; height: 22px; }
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand__text small {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--color-stop);
+}
 
 .nav__links {
   display: flex;
@@ -355,6 +364,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 0.95rem;
 }
 .card--price li:last-child { border-bottom: none; }
+
+/* Markdown-rendered text (course descriptions, announcement bodies, and
+   custom Pages) needs its paragraph/list spacing restored, since the
+   global reset above removes default browser margins and bullets. */
+.course-description p,
+.announcement-body p {
+  color: var(--color-ink-soft);
+  margin-bottom: 0.6em;
+}
+.course-description ul,
+.course-description ol,
+.announcement-body ul,
+.announcement-body ol {
+  list-style: disc;
+  padding-left: 1.2em;
+  margin-bottom: 0.6em;
+  color: var(--color-ink-soft);
+}
+.course-description strong,
+.announcement-body strong { color: var(--color-ink); }
+
 .card--featured {
   border: 2px solid var(--color-line);
   position: relative;
@@ -555,13 +585,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 0.95rem;
   margin-bottom: var(--space-2);
 }
+.footer__brand {
+  display: block;
+}
+.tagline {
+  display: inline-block;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--color-line);
+}
 .footer__grid a, .footer__grid p { font-size: 0.92rem; color: #c7cad0; }
 .footer__grid li { margin-bottom: 0.5em; }
 .footer__grid a:hover { color: var(--color-line); }
 .footer__bottom {
   border-top: 1px solid rgba(255,255,255,0.12);
   padding-top: var(--space-3);
-  display: center;
+  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-1);

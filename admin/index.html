@@ -3,18 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager — Chimwemwe Driving School</title>
+  <title>Content Manager — Chimwemwe Driving School2</title>
+  <!-- Uses the school's own favicon so the /admin browser tab matches the rest of the site -->
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
   <!--
     This page is the entire admin panel — Decap CMS reads admin/config.yml
-    (same folder) to know what content it's allowed to edit, then gives you
-    a form-based UI. You are not expected to edit this file.
-    Setup instructions: see README.md, section "6. Managing content with the CMS".
+    (same folder) to know what content it's allowed to edit (Settings,
+    Pages, News, Testimonials, Instructors, Gallery, Courses), then gives
+    you a form-based UI, including Markdown editors, image uploads, a
+    Draft → Review → Publish workflow, and per-item Published toggles.
+    You are not expected to edit this file.
+    Full setup instructions: see README.md, section "6. Managing content with the CMS".
   -->
 </head>
 <body>
   <!-- Netlify Identity handles login for the CMS (free, no backend code) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Decap CMS itself -->
+  <!-- Decap CMS itself — reads config.yml automatically and renders the editor UI -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

@@ -7,6 +7,8 @@
   <meta name="description" content="Chimwemwe Driving School2 offers beginner, refresher and defensive driving courses with certified instructors. Book your first lesson today." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -15,10 +17,11 @@
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <span class="brand__mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#f5c344" stroke-width="2"><path d="M3 13l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/><circle cx="7.5" cy="17" r="1"/><circle cx="16.5" cy="17" r="1"/></svg>
+        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <span class="brand__text">
+          Chimwemwe Driving School2
+          <small>Home of Competent Drivers</small>
         </span>
-        Chimwemwe Driving School2
       </a>
       <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -39,8 +42,8 @@
   <section class="hero">
     <div class="container hero__grid">
       <div>
-        <span class="badge">Enrolling now —  Karonga</span>
-        <h1>Your road to a licence starts with Chimwemwe Driving School2.</h1>
+        <span class="badge">Enrolling now — Lilongwe &amp; Blantyre</span>
+        <h1>Your road to a licence starts with Chimwemwe.</h1>
         <p class="lead">Patient, certified instructors. Modern dual-control cars. A structured course that takes you from your first turn of the key to passing your test — with confidence, not stress.</p>
         <div class="hero__ctas">
           <a href="contact.html" class="btn btn--primary">Book Your First Lesson</a>
@@ -59,7 +62,7 @@
           <circle cx="20" cy="280" r="8" fill="#f5c344" />
           <circle cx="340" cy="60" r="10" fill="#2f8f5b" />
           <text x="10" y="304" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Lesson 1</text>
-          <text x="292" y="46" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Licensed</text>
+          <text x="292" y="46" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Licensed 🎉</text>
         </svg>
       </div>
     </div>
@@ -182,8 +185,9 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <h4>Chimwemwe Driving School2</h4>
-          <p>Teaching safe, confident drivers across Lilongwe and Blantyre since 2013.</p>
+          <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
+          <span class="tagline">Home of Competent Drivers</span>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Lilongwe and Blantyre since 2013.</p>
         </div>
         <div>
           <h4>Explore</h4>
@@ -199,12 +203,14 @@
           <ul>
             <li><a href="testimonials.html">Testimonials</a></li>
             <li><a href="contact.html">Contact &amp; Booking</a></li>
-            <li><a href="contact.html#faq">FAQs</a></li>
+            <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h4>Contact</h4>
-          <ul>
+          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <ul id="footer-contact">
             <li>Area 47, Lilongwe, Malawi</li>
             <li>+265 999 123 456</li>
             <li>hello@chimwemwedriving.mw</li>

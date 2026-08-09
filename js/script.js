@@ -1,24 +1,35 @@
 /* =========================================================
-   CHIMWEMWE DRIVING SCHOOL — SITE SCRIPT
+   CHIMWEMWE DRIVING SCHOOL2 — SITE SCRIPT
    ---------------------------------------------------------
    This file is plain, framework-free JavaScript. Every feature
    below is wrapped in a small function and only runs if the
    matching element actually exists on the page (see the "if"
-   guards). That means you can copy this one file onto every
-   page of the site and each page will only use the parts it
-   needs — nothing breaks if a page doesn't have, say, a
-   testimonial slider.
+   guards). That means this ONE file is shared by every page —
+   each page only uses the parts it needs, and nothing breaks
+   if a page doesn't have, say, a testimonial slider.
 
    Sections:
    1. Mobile navigation toggle
    2. Highlight the current page in the nav
    3. Scroll-reveal animation (adds .is-visible to .reveal items)
-   4. Testimonial slider
+   4. Testimonial slider + testimonials grid
    5. FAQ accordion
    6. Contact / booking form validation + submission
-   7. CMS-driven content (reads JSON files edited via /admin)
+   7. Shared CMS helpers (fetch JSON, escape text, Markdown, etc.)
+   8. Site settings — theme colours, logo/favicon, contact info
+   9. Instructors / Gallery / Courses / Announcements (CMS content)
+   10. Custom pages (renders anything created in the CMS "Pages"
+       collection, via page.html?slug=...)
+
+   Everything in sections 7–10 reads from the small JSON files in
+   /data — which is exactly what the CMS at /admin edits. So an
+   editor filling in a form at /admin changes what gets rendered
+   here, with no other code changes ever needed.
    ========================================================= */
 
+// This runs once the HTML has finished loading. Every function it
+// calls checks first whether the element it needs exists on THIS
+// page, so it's safe to call all of them from every page.
 document.addEventListener("DOMContentLoaded", function () {
   initMobileNav();
   highlightCurrentPage();
@@ -26,15 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
   initFaqAccordion();
   initFormValidation();
 
-  // These all read their content from the /data/*.json files, which is
-  // exactly what the CMS at /admin edits. Each function checks for its
-  // own container and does nothing if that container isn't on this page.
-  renderTestimonials();       // homepage slider (all items)
-  renderTestimonialsGrid();   // full testimonials page (all items)
+  applySiteSettings();        // theme colours, logo, favicon, footer contact info
+  renderTestimonials();       // homepage slider (published items only)
+  renderTestimonialsGrid();   // full testimonials page (published items only)
   renderInstructors();
   renderGallery();
   renderCourses();
   renderAnnouncements();
+  renderCustomPage();         // only does anything on page.html
 });
 
 /* ---------- 1. Mobile navigation toggle ---------- */
@@ -70,7 +80,7 @@ function highlightCurrentPage() {
 
 /* ---------- 3. Scroll-reveal animation ---------- */
 function initScrollReveal() {
-  const items = document.querySelectorAll(".reveal");
+  const items = document.querySelectorAll(".reveal:not([data-observed])");
   if (!items.length) return;
 
   // If the browser doesn't support IntersectionObserver, just show everything.
@@ -91,12 +101,17 @@ function initScrollReveal() {
     { threshold: 0.15 }
   );
 
-  items.forEach((el) => observer.observe(el));
+  // Mark each element as "already being watched" so calling this function
+  // again later (after CMS content loads in) doesn't double-observe items.
+  items.forEach((el) => {
+    el.setAttribute("data-observed", "true");
+    observer.observe(el);
+  });
 }
 
 /* ---------- 4. Testimonial slider (homepage) ---------- */
 // Builds its slides from data/testimonials.json, then wires up the
-// existing dot-navigation/autoplay behaviour once the slides exist.
+// dot-navigation/autoplay behaviour once the slides exist.
 async function renderTestimonials() {
   const slider = document.querySelector(".testimonial-slider");
   if (!slider) return;
@@ -104,13 +119,14 @@ async function renderTestimonials() {
   const track = slider.querySelector(".testimonial-slider__track");
   const nav = slider.querySelector(".testimonial-slider__nav");
   const data = await loadJSON("data/testimonials.json");
+  const items = onlyPublished(data);
 
-  if (!data || !data.items || !data.items.length) {
+  if (!items.length) {
     track.innerHTML = contentErrorMessage();
     return;
   }
 
-  track.innerHTML = data.items.map(testimonialCardHTML).join("");
+  track.innerHTML = items.map((t) => testimonialCardHTML(t)).join("");
   nav.innerHTML = "";
   wireTestimonialSlider(track, nav);
 }
@@ -156,13 +172,12 @@ async function renderTestimonialsGrid() {
   if (!grid) return;
 
   const data = await loadJSON("data/testimonials.json");
-  if (!data || !data.items || !data.items.length) {
+  const items = onlyPublished(data);
+  if (!items.length) {
     grid.innerHTML = contentErrorMessage();
     return;
   }
-  grid.innerHTML = data.items
-    .map((t) => testimonialCardHTML(t, "reveal"))
-    .join("");
+  grid.innerHTML = items.map((t) => testimonialCardHTML(t, "reveal")).join("");
   initScrollReveal(); // re-run so the freshly-added cards get observed
 }
 
@@ -279,19 +294,14 @@ function showFormMessage(form, type, text) {
   box.setAttribute("role", "status");
 }
 
-/* ---------- 7. CMS-driven content ---------- */
-/*
-  Everything below reads its content from the small JSON files in /data.
-  Those are exactly the files the CMS at /admin edits — so updating a
-  testimonial, instructor, gallery photo, course, or announcement in the
-  CMS changes what these functions render here, with no other code
-  changes needed.
-
-  Note for local testing: fetch() cannot read local files when you open
-  an .html file directly (file://) in some browsers. Always preview with
-  a local server (see README, "Running the site locally") so these
-  sections load correctly.
-*/
+/* =========================================================
+   7. SHARED CMS HELPERS
+   ---------------------------------------------------------
+   Small utility functions used by every CMS-driven section
+   below. Keeping them here (instead of copy-pasting inside
+   each render function) means a bug fix or improvement here
+   automatically applies everywhere.
+   ========================================================= */
 
 // Fetches and parses a JSON file. Returns null (instead of throwing) if
 // the file is missing or the site isn't running on a server, so callers
@@ -323,18 +333,147 @@ function contentErrorMessage() {
   );
 }
 
-/* ---------- 7a. Instructors ---------- */
+// PUBLISH / UNPUBLISH SUPPORT
+// Every item edited through the CMS has a "published" true/false switch
+// (see admin/config.yml). Rather than deleting an entry to hide it, an
+// editor can flip this switch off — the item stays saved in the CMS but
+// this function filters it out of what actually renders on the live
+// site. This is what gives the CMS a genuine "unpublish" action.
+function onlyPublished(data) {
+  if (!data || !Array.isArray(data.items)) return [];
+  return data.items.filter((item) => item.published !== false);
+}
+
+// MARKDOWN RENDERING
+// Some CMS fields (course descriptions, announcement bodies, custom page
+// content) are written as Markdown — e.g. **bold**, ## headings, lists —
+// because it's a friendlier writing format than typing raw HTML. We use
+// a small, well-known library called "marked" to turn that Markdown text
+// into real HTML in the visitor's browser.
+//
+// Rather than adding a <script> tag to every single HTML page (which
+// would load it even on pages that never use Markdown), we load it once,
+// on demand, the first time any function actually needs it. This pattern
+// is called "lazy loading" — it keeps pages that don't need it fast.
+let markdownLibraryPromise = null;
+function loadMarkdownLibrary() {
+  if (markdownLibraryPromise) return markdownLibraryPromise; // already loading/loaded
+
+  markdownLibraryPromise = new Promise(function (resolve, reject) {
+    if (window.marked) {
+      resolve(window.marked);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
+    script.onload = () => resolve(window.marked);
+    script.onerror = () => reject(new Error("Could not load the Markdown library"));
+    document.head.appendChild(script);
+  });
+
+  return markdownLibraryPromise;
+}
+
+// Converts a Markdown string to an HTML string, ready to insert into the
+// page. Falls back to plain escaped text (still safe, just unformatted)
+// if the Markdown library can't be loaded — e.g. no internet connection.
+async function renderMarkdown(markdownText) {
+  if (!markdownText) return "";
+  try {
+    const marked = await loadMarkdownLibrary();
+    // marked.parse() trusts its input to contain real HTML tags (that's
+    // how Markdown supports things like embedded links/images). Because
+    // only trusted site editors can write this content through the CMS
+    // (protected by Identity login), that trade-off is safe here.
+    return marked.parse(markdownText);
+  } catch (err) {
+    console.error(err);
+    return "<p>" + escapeHTML(markdownText) + "</p>";
+  }
+}
+
+/* =========================================================
+   8. SITE SETTINGS — theme colours, logo/favicon, contact info
+   ---------------------------------------------------------
+   Reads data/settings.json (edited via the CMS "Site Settings"
+   collection) and applies it to the current page:
+     - Swaps the favicon and every logo image on the page
+     - Re-colours the site's theme by overwriting the CSS
+       variables defined in css/style.css (:root { ... })
+     - Fills in the footer's contact details
+   This is what lets a non-technical editor change "the school's
+   colours" or "the site icon" from a form, without opening any
+   CSS or HTML file.
+   ========================================================= */
+async function applySiteSettings() {
+  const settings = await loadJSON("data/settings.json");
+  if (!settings) return; // fall back silently to what's already in the HTML/CSS
+
+  applyFavicon(settings.favicon);
+  applyLogo(settings.logo);
+  applyTheme(settings.theme);
+  renderFooterContact(settings);
+}
+
+function applyFavicon(faviconPath) {
+  if (!faviconPath) return;
+  const iconLink = document.querySelector('link[rel="icon"]');
+  if (iconLink) iconLink.setAttribute("href", faviconPath);
+}
+
+function applyLogo(logoPath) {
+  if (!logoPath) return;
+  // There can be more than one logo <img> on a page (currently just the
+  // one in the header), so we update all of them at once.
+  document.querySelectorAll(".brand__logo").forEach((img) => {
+    img.setAttribute("src", logoPath);
+  });
+}
+
+// Overwrites the CSS custom properties (variables) declared in the
+// :root {} section at the top of css/style.css. Because every component
+// in the stylesheet already uses var(--color-line) etc. instead of a
+// hard-coded colour, changing these three values re-colours the entire
+// site instantly — no separate "dark mode" or "theme B" CSS file needed.
+function applyTheme(theme) {
+  if (!theme) return;
+  const root = document.documentElement.style;
+  if (theme.primary_color) root.setProperty("--color-line", theme.primary_color);
+  if (theme.asphalt_color) root.setProperty("--color-asphalt", theme.asphalt_color);
+  if (theme.accent_color) root.setProperty("--color-stop", theme.accent_color);
+}
+
+function renderFooterContact(settings) {
+  const list = document.getElementById("footer-contact");
+  if (!list || !settings.branches || !settings.branches.length) return;
+
+  const primaryBranch = settings.branches[0];
+  const phone = (settings.contact && settings.contact.phone_primary) || primaryBranch.phone;
+  const email = (settings.contact && settings.contact.email) || "";
+
+  list.innerHTML =
+    "<li>" + escapeHTML(primaryBranch.address) + "</li>" +
+    "<li>" + escapeHTML(phone) + "</li>" +
+    "<li>" + escapeHTML(email) + "</li>";
+}
+
+/* =========================================================
+   9. CMS CONTENT — Instructors / Gallery / Courses / Announcements
+   ========================================================= */
+
+/* ---------- 9a. Instructors ---------- */
 async function renderInstructors() {
   const grid = document.getElementById("instructors-grid");
   if (!grid) return;
 
   const data = await loadJSON("data/instructors.json");
-  if (!data || !data.items || !data.items.length) {
+  const items = onlyPublished(data);
+  if (!items.length) {
     grid.innerHTML = contentErrorMessage();
     return;
   }
 
-  grid.innerHTML = data.items
+  grid.innerHTML = items
     .map(
       (p) =>
         '<div class="person reveal">' +
@@ -349,82 +488,94 @@ async function renderInstructors() {
   initScrollReveal();
 }
 
-/* ---------- 7b. Gallery ---------- */
+/* ---------- 9b. Gallery ---------- */
 async function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   if (!grid) return;
 
   const data = await loadJSON("data/gallery.json");
-  if (!data || !data.items || !data.items.length) {
+  const items = onlyPublished(data);
+  if (!items.length) {
     grid.innerHTML = contentErrorMessage();
     return;
   }
 
-  grid.innerHTML = data.items
+  grid.innerHTML = items
     .map((g) => '<img src="' + escapeHTML(g.image) + '" alt="' + escapeHTML(g.alt) + '" />')
     .join("");
 }
 
-/* ---------- 7c. Courses ---------- */
+/* ---------- 9c. Courses ---------- */
+// Course descriptions are written in Markdown via the CMS, so this
+// function is async all the way through: it waits for each description
+// to be converted to HTML before building the final card markup.
 async function renderCourses() {
   const containers = document.querySelectorAll("[data-courses]");
   if (!containers.length) return;
 
   const data = await loadJSON("data/courses.json");
-  if (!data || !data.items || !data.items.length) {
+  const items = onlyPublished(data);
+  if (!items.length) {
     containers.forEach((c) => (c.innerHTML = contentErrorMessage()));
     return;
   }
 
-  const html = data.items.map(courseCardHTML).join("");
+  const cardsHTML = await Promise.all(items.map(courseCardHTML));
+  const html = cardsHTML.join("");
   containers.forEach((c) => (c.innerHTML = html));
   initScrollReveal();
 }
 
-function courseCardHTML(course) {
+async function courseCardHTML(course) {
   const featuredClass = course.featured ? " card--featured" : "";
   const buttonClass = course.featured ? "btn--primary" : "btn--ghost";
   const features = (course.features || [])
     .map((f) => "<li>" + escapeHTML(f) + "</li>")
     .join("");
+  const descriptionHTML = await renderMarkdown(course.description);
   return (
     '<div class="card card--price reveal' + featuredClass + '">' +
     "<h3>" + escapeHTML(course.name) + "</h3>" +
     '<p class="price">' + escapeHTML(course.price) + "</p>" +
-    "<p>" + escapeHTML(course.description) + "</p>" +
+    '<div class="course-description">' + descriptionHTML + "</div>" +
     "<ul>" + features + "</ul>" +
     '<a href="contact.html" class="btn ' + buttonClass + ' btn--block">Enrol Now</a>' +
     "</div>"
   );
 }
 
-/* ---------- 7d. Announcements / news ---------- */
+/* ---------- 9d. Announcements / news ---------- */
+// Announcement bodies are also Markdown, so this is async for the same
+// reason as courses above.
 async function renderAnnouncements() {
   const list = document.getElementById("announcements-list");
   if (!list) return;
 
   const data = await loadJSON("data/announcements.json");
-  if (!data || !data.items || !data.items.length) {
+  const items = onlyPublished(data)
+    .slice() // copy the array before sorting, so we don't mutate the original
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3); // newest 3 only, on the homepage
+
+  if (!items.length) {
     list.innerHTML = contentErrorMessage();
     return;
   }
 
-  // Newest first, show the 3 most recent
-  const items = data.items
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 3);
-
-  list.innerHTML = items
-    .map(
-      (a) =>
+  const cardsHTML = await Promise.all(
+    items.map(async (a) => {
+      const bodyHTML = await renderMarkdown(a.body);
+      return (
         '<div class="card reveal">' +
         '<span class="person__role">' + formatDate(a.date) + "</span>" +
         "<h3>" + escapeHTML(a.title) + "</h3>" +
-        "<p>" + escapeHTML(a.body) + "</p>" +
+        '<div class="announcement-body">' + bodyHTML + "</div>" +
         "</div>"
-    )
-    .join("");
+      );
+    })
+  );
+
+  list.innerHTML = cardsHTML.join("");
   initScrollReveal();
 }
 
@@ -432,4 +583,48 @@ function formatDate(isoDate) {
   const d = new Date(isoDate);
   if (isNaN(d)) return escapeHTML(isoDate);
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
+/* =========================================================
+   10. CUSTOM PAGES (created via the CMS "Pages" collection)
+   ---------------------------------------------------------
+   Only does anything on page.html. Reads the ?slug=... part of
+   the URL, fetches the matching file from data/pages/, and fills
+   in the title/heading/body — converting the Markdown body to
+   HTML on the way. See page.html for the full explanation of how
+   this generic-page system works and its one manual step (adding
+   a nav link) when you publish a brand-new page.
+   ========================================================= */
+async function renderCustomPage() {
+  const titleEl = document.getElementById("page-title");
+  const bodyEl = document.getElementById("page-body");
+  if (!titleEl || !bodyEl) return; // not on page.html
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (!slug) {
+    titleEl.textContent = "Page not found";
+    bodyEl.innerHTML = "<p>No page was specified. Check the link you followed, or " +
+      '<a href="index.html">return to the homepage</a>.</p>';
+    return;
+  }
+
+  const page = await loadJSON("data/pages/" + slug + ".json");
+
+  if (!page || page.published === false) {
+    titleEl.textContent = "Page not found";
+    bodyEl.innerHTML = "<p>This page doesn't exist or isn't published yet. " +
+      '<a href="index.html">Return to the homepage</a>.</p>';
+    return;
+  }
+
+  document.title = page.title + " — Chimwemwe Driving School2";
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription && page.meta_description) {
+    metaDescription.setAttribute("content", page.meta_description);
+  }
+
+  titleEl.textContent = page.title;
+  bodyEl.innerHTML = await renderMarkdown(page.body);
 }

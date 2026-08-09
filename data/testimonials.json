@@ -1,10 +1,40 @@
 {
   "items": [
-    { "name": "Mercy B.", "stars": 5, "quote": "I was terrified of driving in town traffic. My instructor was so patient — three months later I passed my test on the first try." },
-    { "name": "Joseph K.", "stars": 5, "quote": "Booking lessons around my work shifts was so easy. The dual-control car made me feel safe from lesson one." },
-    { "name": "Grace M.", "stars": 5, "quote": "Hadn't driven in 6 years. The refresher course got my confidence back in just two weeks." },
-    { "name": "Alinafe T.", "stars": 5, "quote": "The theory classes actually explained why the rules exist, not just what they are. It stuck with me." },
-    { "name": "Daniel P.", "stars": 5, "quote": "My instructor came with me to the test centre and it made all the difference to my nerves." },
-    { "name": "Ruth C.", "stars": 5, "quote": "Learned to ride a motorcycle safely in two weeks. Worth every kwacha." }
+    {
+      "name": "Mercy B.",
+      "stars": 5,
+      "quote": "I was terrified of driving in town traffic. My instructor was so patient \u2014 three months later I passed my test on the first try.",
+      "published": true
+    },
+    {
+      "name": "Joseph K.",
+      "stars": 5,
+      "quote": "Booking lessons around my work shifts was so easy. The dual-control car made me feel safe from lesson one.",
+      "published": true
+    },
+    {
+      "name": "Grace M.",
+      "stars": 5,
+      "quote": "Hadn't driven in 6 years. The refresher course got my confidence back in just two weeks.",
+      "published": true
+    },
+    {
+      "name": "Alinafe T.",
+      "stars": 5,
+      "quote": "The theory classes actually explained why the rules exist, not just what they are. It stuck with me.",
+      "published": true
+    },
+    {
+      "name": "Daniel P.",
+      "stars": 5,
+      "quote": "My instructor came with me to the test centre and it made all the difference to my nerves.",
+      "published": true
+    },
+    {
+      "name": "Ruth C.",
+      "stars": 5,
+      "quote": "Learned to ride a motorcycle safely in two weeks. Worth every kwacha.",
+      "published": true
+    }
   ]
 }
