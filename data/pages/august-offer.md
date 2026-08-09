@@ -1,6 +1,6 @@
 ---
 title: August Offer
-slug: aug26-offer
+slug: offer
 published: true
 ---
 ![](/images/uploads/grts_12.jpg "Don’t miss it ")
