@@ -561,7 +561,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .footer__bottom {
   border-top: 1px solid rgba(255,255,255,0.12);
   padding-top: var(--space-3);
-  display: flex;
+  display: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-1);
