@@ -1,45 +1,68 @@
 {
   "items": [
     {
-      "name": "Beginner Course",
-      "price": "MK 800,000",
-      "description": "For learners starting from zero experience behind the wheel.",
+      "name": "A1 Motorcycle License Course",
+      "price": "MK 453,000",
+      "description": "For learners starting from zero experience riding motorcycles.",
       "featured": false,
       "features": [
-        "20 practical driving lessons (1 hour each)",
-        "4 highway code & theory classes",
-        "1 mock road test",
-        "Certificate of completion",
-        "Learner's permit guidance"
+        "30 practical riding lessons",
+        "20 days of highway code & theory classes",
+        "aptitude test preparation before your official learner license test with the Malawi Road Traffic Directorate"
       ],
       "published": true
     },
     {
-      "name": "Standard + Test Support",
-      "price": "MK 900,000",
-      "description": "Our most popular course, with complete test-day support.",
+      "name": " Code B (Light motor Vehicle) Driving License Course",
+      "price": "MK 753,000",
+      "description": "Our most popular course.",
       "featured": true,
       "features": [
-        "28 practical driving lessons",
-        "6 highway code & theory classes",
-        "2 mock road tests",
-        "Personal escort to your official test",
-        "Free re-test lesson if needed"
+        "30 practical driving lessons, 30 minutes each day",
+        "20 days of highway code & theory classes",
+        "2 mock road tests with our instructors"
       ],
       "published": true
     },
     {
-      "name": "Refresher Course",
-      "price": "MK 500,000",
-      "description": "For licensed drivers who want to rebuild confidence and skills.",
+      "name": "C1 (Heavy Goods Vehicle Driving License Course)",
+      "price": "MK 903,000",
+      "description": "For licensed drivers who want to rebuild confidence, skills and upgrade their licenses to drive heavy goods vehicles.",
       "featured": false,
       "features": [
-        "8 practical driving lessons",
-        "Defensive driving techniques",
-        "Night & highway driving practice",
-        "Parallel parking & tight-space drills"
+        "30 practical driving lessons",
+        "20 days of highway code & theory classes",
+        "2 mock road tests with our instructors",
+        "Aptitude test preparation before your official license test with the Malawi Road Traffic Directorate"
+      ],
+      "published": true
+    },
+    {
+      "name": "C (Heavy Goods Vehicle Driving License Course)-All big vehicles without trailer",
+      "price": "MK 1,453,000",
+      "description": "For licensed drivers who want to drive all big vehicles without trailer.",
+      "featured": false,
+      "features": [
+        "15 practical driving lessons",
+        "10 days of highway code & theory classes",
+        "2 mock road tests with our instructors",
+        "Aptitude test preparation before your official license test with the Malawi Road Traffic Directorate"
+      ],
+      "published": true
+    },
+    {
+      "name": "CE - For aticulated trucks (Heavy Goods Vehicle Driving License Course)-All big vehicles with trailer",
+      "price": "MK 1,753,000",
+      "description": "For licensed drivers who want to drive all big vehicles with trailer.",
+      "featured": false,
+      "features": [
+        "15 practical driving lessons",
+        "10 days of highway code & theory classes",
+        "2 mock road tests with our instructors",
+        "Aptitude test preparation before your official license test with the Malawi Road Traffic Directorate"
       ],
       "published": true
     }
+  
   ]
 }

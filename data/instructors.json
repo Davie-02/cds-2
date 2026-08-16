@@ -1,30 +1,37 @@
 {
   "items": [
     {
-      "name": "Chikondi Phiri",
-      "role": "Lead Instructor",
-      "bio": "11 years teaching. Specialises in nervous first-time learners.",
+      "name": "Chisomo George Banda",
+      "role": "Director and Lead Instructor",
+      "bio": "20 years of experience in driving instruction.",
       "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80",
       "published": true
     },
     {
-      "name": "Thandiwe Banda",
-      "role": "Senior Instructor",
-      "bio": "8 years teaching. Runs our defensive driving clinics.",
+      "name": "Peter Mbewe Nyoni",
+      "role": "Instructor",
+      "bio": "25+ years of experience in driving instruction.",
       "photo": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=500&q=80",
       "published": true
     },
     {
-      "name": "Mphatso Chirwa",
+      "name": "Chifundo Mikundi",
       "role": "Instructor",
-      "bio": "5 years teaching. Handles our motorcycle course.",
+      "bio": "10+ years of experience in driving instruction.",
       "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80",
       "published": true
     },
     {
-      "name": "Esther Nyirenda",
+      "name": "Kate Chilemba",
       "role": "Instructor",
-      "bio": "4 years teaching. Leads test-day escort sessions.",
+      "bio": "8 years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Praise Kaonga",
+      "role": "Instructor",
+      "bio": "6 years of experience in driving instruction.",
       "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80",
       "published": true
     }
