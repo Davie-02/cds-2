@@ -18,6 +18,7 @@
    stylesheets use to stay easy to maintain.
    ========================================================= */
 
+
 /* ---------- 1. TOKENS ---------- */
 :root {
   /* Brand palette — "asphalt & road-line" theme */
@@ -607,6 +608,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-wrap: wrap;
   gap: var(--space-1);
   font-size: 0.82rem;
+}
+.whatsapp-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
 }
 
 /* Utility */
