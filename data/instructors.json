@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "name": "Chisomo George Banda",
+      "role": "Director and Lead Instructor",
+      "bio": "20 years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Peter Mbewe Nyoni",
+      "role": "Instructor",
+      "bio": "25+ years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Chifundo Mikundi",
+      "role": "Instructor",
+      "bio": "10+ years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Kate Chilemba",
+      "role": "Instructor",
+      "bio": "8 years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80",
+      "published": true
+    },
+    {
+      "name": "Praise Kaonga",
+      "role": "Instructor",
+      "bio": "6 years of experience in driving instruction.",
+      "photo": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&q=80",
+      "published": true
+    }
+  ]
+}

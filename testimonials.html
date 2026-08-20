@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimonials — Chimwemwe Driving School2</title>
+  <meta name="description" content="Read what graduates of Chimwemwe Driving School2 say about their lessons and results." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <span class="brand__text">
+          Chimwemwe Driving School2
+          <small>Home of Competent Drivers</small>
+        </span>
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Courses</a>
+        <a href="instructors.html">Instructors</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Testimonials</span>
+      <h1>3,400+ graduates. Here's what a few of them say.</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <!-- Populated from data/testimonials.json by js/script.js (renderTestimonialsGrid) -->
+    <div class="container grid grid--3" id="testimonials-grid"></div>
+  </section>
+
+  <div class="cta-band">
+    <div class="container">
+      <div>
+        <h3>Ready to write your own success story?</h3>
+        <p>Join our next intake this month.</p>
+      </div>
+      <a href="contact.html" class="btn btn--dark">Book Your First Lesson</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
+          <span class="tagline">Home of Competent Drivers</span>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Lilongwe and Blantyre since 2013.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Courses &amp; Pricing</a></li>
+            <li><a href="instructors.html">Our Instructors</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <ul>
+            <li><a href="testimonials.html">Testimonials</a></li>
+            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <ul id="footer-contact">
+            <li>Karonga, Malawi</li>
+            <li>+265 999 118 292</li>
+            <li>chimwemwedrivingschool0@gmail.com</li>
+            <li><a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-button">WhatsApp Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Chimwemwe Driving School2. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
