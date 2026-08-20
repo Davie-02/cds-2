@@ -1,0 +1,231 @@
+# =====================================================================
+# DECAP CMS CONFIGURATION — Chimwemwe Driving School2
+# ---------------------------------------------------------------------
+# This file tells the /admin content manager what content exists and
+# what fields/editing tools to show for each. Every collection below
+# points at a JSON file in /data, which is what the website's
+# JavaScript (js/script.js) reads to render pages.
+#
+# You should not need to edit this file for day-to-day content work —
+# only if you want to add a brand-new TYPE of content later (e.g. a
+# "Jobs" or "Events" section), following the same pattern below.
+#
+# See README.md section 6 for full setup + a guide to every feature.
+# =====================================================================
+
+backend:
+  # git-gateway lets the CMS commit content changes straight to your
+  # GitHub repo, using Netlify Identity for login — no personal access
+  # tokens or server code required. Set up in Netlify (see README).
+  name: git-gateway
+  branch: main
+
+# EDITORIAL WORKFLOW — this is what gives the CMS real "Draft → In
+# Review → Publish" stages (Decap's built-in publish/unpublish system),
+# instead of every save going live immediately. An editor drafts a
+# change, it can be reviewed, and only becomes live on the click of
+# "Publish". Un-drafting/deleting an entry before publishing is how you
+# "unpublish" something that was never meant to go out; for content
+# that IS already live, use the entry's own "Published" toggle field
+# instead (see each collection below) to hide it without deleting it.
+publish_mode: editorial_workflow
+
+# Shows the school's real logo on the CMS login screen instead of the
+# generic Decap CMS logo — small touch, but it makes /admin feel like
+# part of the school's own site rather than a generic third-party tool.
+logo_url: /images/logo.png
+
+# Where photos uploaded through the CMS (e.g. a new instructor photo)
+# are stored in the repo, and the URL path the website uses to reach
+# them. Keeping uploads in their own folder keeps /images tidy.
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+
+  # -------------------------------------------------------------
+  # SITE SETTINGS — a single-entry collection (not a list) for
+  # site-wide branding, theme colours, icons and contact details.
+  # This is the "icons and theme" control panel requested: changing
+  # the Primary Colour here re-colours the whole site (see
+  # applyTheme() in js/script.js), and changing the Favicon/Logo
+  # here updates the browser tab icon and header logo everywhere.
+  # -------------------------------------------------------------
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - name: "settings"
+        label: "Site Settings"
+        file: "data/settings.json"
+        fields:
+          - { label: "Site name", name: "site_name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "Favicon (browser tab icon)", name: "favicon", widget: "image" }
+          - label: "Theme colours"
+            name: "theme"
+            widget: "object"
+            fields:
+              - { label: "Primary colour (buttons, accents)", name: "primary_color", widget: "color" }
+              - { label: "Dark colour (header/footer background)", name: "asphalt_color", widget: "color" }
+              - { label: "Highlight colour (badges, warnings)", name: "accent_color", widget: "color" }
+          - label: "Contact details"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Primary phone", name: "phone_primary", widget: "string" }
+              - { label: "Secondary phone", name: "phone_secondary", widget: "string" }
+              - { label: "Email address", name: "email", widget: "string" }
+          - label: "Branches"
+            name: "branches"
+            widget: "list"
+            label_singular: "Branch"
+            summary: "{{name}}"
+            fields:
+              - { label: "Branch name", name: "name", widget: "string" }
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "Opening hours", name: "hours", widget: "string" }
+          - label: "Social media links"
+            name: "social"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+              - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+              - { label: "WhatsApp link", name: "whatsapp", widget: "string", required: false }
+
+  # -------------------------------------------------------------
+  # PAGES — create brand-new pages (Privacy Policy, Terms, a special
+  # promotion page, etc.) without touching any HTML file. Each entry
+  # becomes its own file under data/pages/, and is viewable at
+  # page.html?slug=your-slug — see page.html for how that works and
+  # its one manual step (adding a nav link) after publishing.
+  # -------------------------------------------------------------
+  - name: "pages"
+    label: "📄 Pages"
+    folder: "data/pages"
+    create: true                 # lets editors add brand-new pages, not just edit existing ones
+    slug: "{{slug}}"             # the file name is taken from the Slug field below
+    identifier_field: "title"
+    summary: "{{title}} ({{slug}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Slug (used in the page's web address, e.g. \"about-financing\")"
+        name: "slug"
+        widget: "string"
+        pattern: ['^[a-z0-9\-]+$', "Lowercase letters, numbers and hyphens only"]
+      - { label: "Navigation link text", name: "nav_label", widget: "string", required: false }
+      - { label: "SEO meta description", name: "meta_description", widget: "string", required: false }
+      - { label: "Published", name: "published", widget: "boolean", default: true }
+      - { label: "Page content", name: "body", widget: "markdown" }
+
+  # -------------------------------------------------------------
+  # NEWS & ANNOUNCEMENTS — the "Latest News" cards on the homepage.
+  # This is the CMS's simplest "blog-like posting" tool.
+  # -------------------------------------------------------------
+  - name: "announcements"
+    label: "📰 News & Announcements"
+    files:
+      - name: "announcements"
+        label: "Announcements"
+        file: "data/announcements.json"
+        fields:
+          - label: "Posts"
+            name: "items"
+            widget: "list"
+            label_singular: "Announcement"
+            summary: "{{title}} — {{date}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Body (Markdown supported: **bold**, lists, etc.)", name: "body", widget: "markdown" }
+              - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this post without deleting it." }
+
+  # -------------------------------------------------------------
+  # TESTIMONIALS
+  # -------------------------------------------------------------
+  - name: "testimonials"
+    label: "⭐ Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "data/testimonials.json"
+        fields:
+          - label: "Testimonials"
+            name: "items"
+            widget: "list"
+            label_singular: "Testimonial"
+            summary: "{{name}} — {{stars}}★"
+            fields:
+              - { label: "Student name", name: "name", widget: "string" }
+              - { label: "Rating (1–5)", name: "stars", widget: "number", value_type: "int", min: 1, max: 5, default: 5 }
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this testimonial without deleting it." }
+
+  # -------------------------------------------------------------
+  # INSTRUCTORS
+  # -------------------------------------------------------------
+  - name: "instructors"
+    label: "🧑‍🏫 Instructors"
+    files:
+      - name: "instructors"
+        label: "Instructors"
+        file: "data/instructors.json"
+        fields:
+          - label: "Instructors"
+            name: "items"
+            widget: "list"
+            label_singular: "Instructor"
+            summary: "{{name}} — {{role}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / title", name: "role", widget: "string" }
+              - { label: "Short bio", name: "bio", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image" }
+              - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this instructor without deleting their profile." }
+
+  # -------------------------------------------------------------
+  # GALLERY
+  # -------------------------------------------------------------
+  - name: "gallery"
+    label: "🖼️ Gallery"
+    files:
+      - name: "gallery"
+        label: "Gallery"
+        file: "data/gallery.json"
+        fields:
+          - label: "Photos"
+            name: "items"
+            widget: "list"
+            label_singular: "Photo"
+            summary: "{{alt}}"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Description (for accessibility)", name: "alt", widget: "string" }
+              - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this photo without deleting it." }
+
+  # -------------------------------------------------------------
+  # COURSES & PRICING
+  # -------------------------------------------------------------
+  - name: "courses"
+    label: "🎓 Courses & Pricing"
+    files:
+      - name: "courses"
+        label: "Courses"
+        file: "data/courses.json"
+        fields:
+          - label: "Courses"
+            name: "items"
+            widget: "list"
+            label_singular: "Course"
+            summary: "{{name}} — {{price}}"
+            fields:
+              - { label: "Course name", name: "name", widget: "string" }
+              - { label: "Price (as shown, e.g. MK 180,000)", name: "price", widget: "string" }
+              - { label: "Description (Markdown supported)", name: "description", widget: "markdown" }
+              - { label: "Highlight as 'Most Popular'", name: "featured", widget: "boolean", default: false }
+              - label: "Included features (one per line)"
+                name: "features"
+                widget: "list"
+              - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this course without deleting it." }

@@ -1,0 +1,35 @@
+{
+  "site_name": "Chimwemwe Driving School2",
+  "tagline": "Home of Competent Drivers",
+  "logo": "images/logo.png",
+  "favicon": "images/favicon.png",
+  "theme": {
+    "primary_color": "#f5c344",
+    "asphalt_color": "#1c2024",
+    "accent_color": "#c94f3d"
+  },
+  "contact": {
+    "phone_primary": "+265 999 123 456",
+    "phone_secondary": "+265 888 654 321",
+    "email": "chimwemwedrivingschool0@gmail.com"
+  },
+  "branches": [
+    {
+      "name": "Mzuzu Branch",
+      "address": "Mchenga Utuwa, Mzuzu, Malawi",
+      "phone": "+265 999 123 456",
+      "hours": "Mon–Sat, 7:00–17:00"
+    },
+    {
+      "name": "Karonga Branch",
+      "address": "Old town roundabout, Karonga, Malawi",
+      "phone": "+265 888 654 321",
+      "hours": "Mon–Sat, 7:00–17:00"
+    }
+  ],
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "whatsapp": "<a href=\"https://wa.me/265991383466\" target=\"_blank\" rel=\"noopener noreferrer\">     WhatsApp Us </a>"
+  }
+}
