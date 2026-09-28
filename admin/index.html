@@ -10,17 +10,15 @@
     This page is the whole admin panel: a small, framework-free app
     (admin.js + admin.css) that edits the JSON files in /data.
 
-    - Login: Netlify Identity (the same accounts the old Decap CMS used).
+    - Login: Netlify Identity (invite-only accounts).
     - Saving: Netlify Git Gateway commits each change straight to the
       GitHub repo's main branch; Netlify then redeploys within seconds.
     - Live: every save also updates data/version.json, which open pages
       on the public site watch — they refresh their content by themselves.
 
-    One-time Netlify setup (already done if Decap worked before):
+    One-time Netlify setup:
       Site configuration → Identity → Enable Identity, set registration to
       "Invite only", then Identity → Services → Enable Git Gateway.
-
-    A backup Decap editor is still available at /admin/decap/.
   -->
   <link rel="icon" type="image/png" href="../images/favicon.png" />
   <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />

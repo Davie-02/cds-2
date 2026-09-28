@@ -56,7 +56,6 @@ cds-2/
 │   ├── version.json       Updated on every admin publish — open pages watch it
 │   └── pages/             One JSON file per custom page (e.g. privacy-policy.json)
 ├── admin/                 Custom content manager (index.html, admin.js, admin.css)
-│   └── decap/             Backup Decap CMS editor (same login)
 └── images/                Logo, icons, and CMS uploads (images/uploads/)
 ```
 
@@ -214,14 +213,10 @@ theory-test questions, and extra pages.
 To add a new editable field, add it to the `COLLECTIONS` list near the top
 of `admin/admin.js` — the forms build themselves from that list.
 
-**One-time Netlify setup** (already done if Decap worked before):
+**One-time Netlify setup:**
 1. Netlify → Site configuration → **Identity** → Enable Identity.
 2. Set **Registration** to *Invite only*, then invite each editor by email.
 3. Identity → **Services** → Enable **Git Gateway**.
-
-A backup Decap CMS editor remains at `/admin/decap/` (same login). Edits
-made there go through Decap's review workflow and don't update
-`data/version.json`, so open pages show them on their next load.
 
 ### Adding a brand-new custom page
 1. In the admin (Pages → New), or by hand, create `data/pages/your-slug.json`:
