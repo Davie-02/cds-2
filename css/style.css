@@ -715,6 +715,32 @@ button { font: inherit; color: inherit; cursor: pointer; border: none; backgroun
 .action-bar { display: none; }
 
 
+/* "Open now" / "Closed now" badge next to branch opening hours */
+.open-status { display: inline-flex; align-items: center; gap: 0.35em; margin-left: 0.4em; font-size: 0.75rem; font-weight: 700; padding: 0.1em 0.6em; border-radius: 999px; white-space: nowrap; }
+.open-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.open-status.is-open { background: rgba(47,143,91,0.12); color: #22704a; }
+.open-status.is-open::before { animation: live-pulse 2s infinite; }
+.open-status.is-closed { background: rgba(201,79,61,0.1); color: #a53d2d; }
+
+/* "Updated just now" note shown when content refreshes live */
+.live-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 120;
+  display: inline-flex; align-items: center; gap: 0.5em;
+  background: var(--color-asphalt); color: var(--color-white);
+  font-size: 0.85rem; font-weight: 600; padding: 0.6em 1.1em; border-radius: 999px;
+  box-shadow: var(--shadow-lift);
+  opacity: 0; transform: translate(-50%, 16px); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.live-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.live-toast__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-go); animation: live-pulse 1.6s infinite; }
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(47,143,91,0.6); } 70% { box-shadow: 0 0 0 7px rgba(47,143,91,0); } 100% { box-shadow: 0 0 0 0 rgba(47,143,91,0); } }
+.has-action-bar .live-toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+
+/* Little car driving along the hero's route line */
+.route-car { fill: var(--color-white); }
+@media (prefers-reduced-motion: reduce) { .route-car { display: none; } }
+
 /* Utility */
 .text-center { text-align: center; margin-left: auto; margin-right: auto; }
 .mt-0 { margin-top: 0; }

@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager — Chimwemwe Driving School2</title>
-  <!-- Uses the school's own favicon so the /admin browser tab matches the rest of the site -->
-  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin — Chimwemwe Driving School2</title>
   <!--
-    This page is the entire admin panel — Decap CMS reads admin/config.yml
-    (same folder) to know what content it's allowed to edit (Settings,
-    Pages, News, Testimonials, Instructors, Gallery, Courses), then gives
-    you a form-based UI, including Markdown editors, image uploads, a
-    Draft → Review → Publish workflow, and per-item Published toggles.
-    You are not expected to edit this file.
-    Full setup instructions: see README.md, section "6. Managing content with the CMS".
+    CUSTOM CONTENT MANAGER
+    This page is the whole admin panel: a small, framework-free app
+    (admin.js + admin.css) that edits the JSON files in /data.
+
+    - Login: Netlify Identity (the same accounts the old Decap CMS used).
+    - Saving: Netlify Git Gateway commits each change straight to the
+      GitHub repo's main branch; Netlify then redeploys within seconds.
+    - Live: every save also updates data/version.json, which open pages
+      on the public site watch — they refresh their content by themselves.
+
+    One-time Netlify setup (already done if Decap worked before):
+      Site configuration → Identity → Enable Identity, set registration to
+      "Invite only", then Identity → Services → Enable Git Gateway.
+
+    A backup Decap editor is still available at /admin/decap/.
   -->
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="admin.css?v=1" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="../js/vendor/marked-15.0.12.min.js" defer></script>
+  <script src="admin.js?v=1" defer></script>
 </head>
 <body>
-  <!-- Netlify Identity handles login for the CMS (free, no backend code) -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Decap CMS itself — reads config.yml automatically and renders the editor UI -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <div id="app"><div class="boot"><span class="spinner"></span></div></div>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
 </body>
 </html>

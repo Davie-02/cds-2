@@ -21,13 +21,13 @@
    VERSION — old caches are then cleaned up automatically.
    ========================================================= */
 
-const VERSION = "cds-20260928";
+const VERSION = "cds-2026092802";
 const CORE_FILES = [
   "./",
   "index.html",
   "offline.html",
-  "css/style.css?v=20260928",
-  "js/script.js?v=20260928",
+  "css/style.css?v=2026092802",
+  "js/script.js?v=2026092802",
   "fonts/inter-latin.woff2",
   "fonts/sora-latin.woff2",
   "images/logo.png",

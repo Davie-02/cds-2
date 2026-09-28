@@ -19,6 +19,7 @@
    8. Theory practice test
    9. Custom pages (page.html?slug=...)
    10. Offline support (service worker)
+   11. Live updates (content refreshes itself after an admin edit)
 
    Everything reads from the small JSON files in /data — which is
    exactly what the CMS at /admin edits. So an editor filling in
@@ -32,23 +33,38 @@ document.addEventListener("DOMContentLoaded", function () {
   initScrollReveal();
   setFooterYear();
 
-  applySiteSettings();        // theme, logo, footer, WhatsApp button, mobile action bar
-  renderAnnouncementBar();    // site-wide banner (if one is current)
-  renderAnnouncements();      // homepage news cards
-  renderStats();
-  renderCourses();
-  renderFaqs();
-  renderBranches();
-  renderInstructors();
-  renderGallery();
-  renderTestimonials();       // homepage slider
-  renderTestimonialsGrid();   // full testimonials page
+  renderAllContent();         // everything that comes from /data (see list below)
   initBookingForm();
   initTheoryTest();
-  renderCustomPage();         // only does anything on page.html
 
   registerServiceWorker();
+  initLiveUpdates();          // re-runs renderAllContent() when the admin publishes
+  setInterval(updateOpenStatus, 60 * 1000); // keeps "Open now" badges current
 });
+
+// Every function that draws CMS content. Each one can safely run again
+// at any time — that's what lets open pages update themselves live.
+const CONTENT_RENDERERS = [
+  applySiteSettings,        // theme, logo, footer, WhatsApp button, mobile action bar
+  renderAnnouncementBar,    // site-wide banner (if one is current)
+  renderAnnouncements,      // homepage news cards
+  renderStats,
+  renderCourses,
+  renderFaqs,
+  renderBranches,
+  renderInstructors,
+  renderGallery,
+  renderTestimonials,       // homepage slider
+  renderTestimonialsGrid,   // full testimonials page
+  fillBookingOptions,       // booking form's course list
+  renderCustomPage          // only does anything on page.html
+];
+
+function renderAllContent() {
+  return Promise.all(CONTENT_RENDERERS.map(function (render) {
+    return Promise.resolve().then(render).catch(function (err) { console.error(err); });
+  }));
+}
 
 
 /* =========================================================
@@ -60,9 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // instead of each downloading it again. Returns null (instead of
 // throwing) if the file is missing, so callers can show a friendly message.
 const jsonCache = {};
+let revalidateData = false; // set after a live update: always ask the server for the newest copy
 function loadJSON(path) {
   if (!jsonCache[path]) {
-    jsonCache[path] = fetch(path)
+    jsonCache[path] = fetch(path, { cache: revalidateData ? "no-cache" : "default" })
       .then(function (response) {
         if (!response.ok) throw new Error("Failed to load " + path);
         return response.json();
@@ -397,7 +414,8 @@ function renderFooterContact(settings) {
 // (phones). Both read the numbers from settings.json, so there is only
 // ONE place to update them.
 function renderContactShortcuts(settings) {
-  if (document.querySelector(".float-whatsapp") || document.body.hasAttribute("data-no-shortcuts")) return;
+  if (document.body.hasAttribute("data-no-shortcuts")) return;
+  document.querySelectorAll(".float-whatsapp, .action-bar").forEach(function (el) { el.remove(); });
   const wa = whatsappLink(whatsappNumber(settings), "Hello, I would like more information about driving lessons.");
   const phone = primaryPhone(settings);
 
@@ -451,7 +469,10 @@ function injectStructuredData(settings) {
       };
     })
   };
+  const old = document.getElementById("structured-data");
+  if (old) old.remove();
   const script = document.createElement("script");
+  script.id = "structured-data";
   script.type = "application/ld+json";
   script.textContent = JSON.stringify(data);
   document.head.appendChild(script);
@@ -488,6 +509,7 @@ async function renderAnnouncementBar() {
   const banner = onlyPublished(data)
     .filter(function (a) { return a.banner; })
     .sort(function (a, b) { return new Date(b.date) - new Date(a.date); })[0];
+  bar.hidden = true;
   if (!banner) return;
 
   const key = "dismissed-banner:" + banner.title;
@@ -514,12 +536,10 @@ async function renderAnnouncements() {
     .sort(function (a, b) { return new Date(b.date) - new Date(a.date); })
     .slice(0, 3); // newest 3 only, on the homepage
 
-  if (!items.length) {
-    // No current news — hide the whole section rather than show an empty box
-    const section = list.closest("section");
-    if (section) section.hidden = true;
-    return;
-  }
+  // No current news — hide the whole section rather than show an empty box
+  const section = list.closest("section");
+  if (section) section.hidden = !items.length;
+  if (!items.length) return;
 
   const cardsHTML = await Promise.all(
     items.map(async function (a) {
@@ -620,7 +640,8 @@ async function renderBranches() {
         "<h3>" + escapeHTML(b.name) + "</h3>" +
         '<p class="branch-card__row">' + ICONS.pin + "<span>" + escapeHTML(b.address) + "</span></p>" +
         (b.phone ? '<p class="branch-card__row">' + ICONS.phone + '<a href="' + telLink(b.phone) + '">' + escapeHTML(b.phone) + "</a></p>" : "") +
-        (b.hours ? '<p class="branch-card__row">' + ICONS.clock + "<span>" + escapeHTML(b.hours) + "</span></p>" : "") +
+        (b.hours ? '<p class="branch-card__row">' + ICONS.clock + "<span>" + escapeHTML(b.hours) +
+          ' <span class="open-status" data-hours="' + escapeHTML(b.hours) + '"></span></span></p>' : "") +
         '<div class="branch-card__actions">' +
         (b.phone ? '<a class="btn btn--outline btn--sm" href="' + telLink(b.phone) + '">Call</a>' : "") +
         (waHref ? '<a class="btn btn--whatsapp btn--sm" href="' + waHref + '" target="_blank" rel="noopener">WhatsApp</a>' : "") +
@@ -630,15 +651,49 @@ async function renderBranches() {
     })
     .join("");
   containers.forEach(function (c) { c.innerHTML = html; });
+  updateOpenStatus();
 
   // Fill the "Preferred branch" dropdown on the booking form, too
   const select = document.getElementById("branch");
   if (select) {
+    const chosen = select.value;
     select.innerHTML = '<option value="">Select a branch</option>' +
       settings.branches.map(function (b) {
         return '<option value="' + escapeHTML(b.name) + '">' + escapeHTML(b.name) + " — " + escapeHTML(b.address) + "</option>";
       }).join("");
+    select.value = chosen;
   }
+}
+
+// "Open now" / "Closed" badge next to each branch's opening hours.
+// Understands hours written like "Mon–Sat, 7:00–17:00" (Malawi time).
+// If the hours are written some other way, the badge simply doesn't show.
+const DAY_NAMES = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+function openStatus(hours) {
+  const m = String(hours).toLowerCase().match(/(sun|mon|tue|wed|thu|fri|sat)[a-z]*\s*(?:[–-]|to)\s*(sun|mon|tue|wed|thu|fri|sat)[a-z]*[,\s]*(\d{1,2})[:.](\d{2})\s*(?:[–-]|to)\s*(\d{1,2})[:.](\d{2})/);
+  if (!m) return null;
+  const parts = {};
+  new Intl.DateTimeFormat("en-GB", { timeZone: "Africa/Blantyre", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+    .formatToParts(new Date())
+    .forEach(function (p) { parts[p.type] = p.value; });
+  const today = DAY_NAMES.indexOf(String(parts.weekday).slice(0, 3).toLowerCase());
+  const from = DAY_NAMES.indexOf(m[1]);
+  const to = DAY_NAMES.indexOf(m[2]);
+  const onDay = from <= to ? today >= from && today <= to : today >= from || today <= to;
+  const now = Number(parts.hour) * 60 + Number(parts.minute);
+  const open = Number(m[3]) * 60 + Number(m[4]);
+  const close = Number(m[5]) * 60 + Number(m[6]);
+  return onDay && now >= open && now < close;
+}
+
+function updateOpenStatus() {
+  document.querySelectorAll("[data-hours]").forEach(function (el) {
+    let isOpen = null;
+    try { isOpen = openStatus(el.getAttribute("data-hours")); } catch (e) { /* unknown time zone support */ }
+    el.hidden = isOpen === null;
+    el.className = "open-status " + (isOpen ? "is-open" : "is-closed");
+    el.textContent = isOpen ? "Open now" : "Closed now";
+  });
 }
 
 // Click-to-load map: loads the OpenStreetMap iframe only when a visitor
@@ -693,17 +748,22 @@ async function renderGallery() {
 
   grid.innerHTML = items
     .map(function (g, i) {
-      return '<button type="button" class="masonry__item" data-index="' + i + '" aria-label="View larger: ' + escapeHTML(g.alt) + '">' +
+      return '<button type="button" class="masonry__item reveal" data-index="' + i + '" aria-label="View larger: ' + escapeHTML(g.alt) + '">' +
         "<img" + imageAttrs(g.image, 600, g.alt) + " /></button>";
     })
     .join("");
-  initLightbox(grid, items);
+  lightboxItems = items;
+  initLightbox(grid);
+  initScrollReveal();
 }
 
 // Full-screen photo viewer with previous/next and keyboard arrows, built
 // on the browser's native <dialog> element (handles focus + Esc for us).
-function initLightbox(grid, items) {
-  if (typeof HTMLDialogElement !== "function") return;
+// Built once; later gallery updates just swap the list of photos.
+let lightboxItems = [];
+function initLightbox(grid) {
+  if (typeof HTMLDialogElement !== "function" || grid.hasAttribute("data-lightbox")) return;
+  grid.setAttribute("data-lightbox", "");
   const dialog = document.createElement("dialog");
   dialog.className = "lightbox";
   dialog.setAttribute("aria-label", "Photo viewer");
@@ -719,8 +779,8 @@ function initLightbox(grid, items) {
   let current = 0;
 
   function show(index) {
-    current = (index + items.length) % items.length;
-    const item = items[current];
+    current = (index + lightboxItems.length) % lightboxItems.length;
+    const item = lightboxItems[current];
     const url = /^https:\/\/images\.unsplash\.com\//.test(item.image)
       ? item.image.split("?")[0] + "?auto=format&q=75&w=1400"
       : item.image;
@@ -770,17 +830,20 @@ async function renderTestimonials() {
   wireTestimonialSlider(slider, track);
 }
 
+// The slider's controls are wired once; when content changes (live
+// update) only the slides and dots are rebuilt.
+const sliderState = { slides: [], dots: [], current: 0, timer: null, wired: false };
 function wireTestimonialSlider(slider, track) {
-  const slides = Array.from(track.children);
   const nav = slider.querySelector(".testimonial-slider__nav");
   const prev = slider.querySelector("[data-slide-prev]");
   const next = slider.querySelector("[data-slide-next]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let current = 0;
-  let timer = null;
+  const st = sliderState;
+  st.slides = Array.from(track.children);
+  st.current = 0;
 
   nav.innerHTML = "";
-  slides.forEach(function (_, index) {
+  st.slides.forEach(function (_, index) {
     const dot = document.createElement("button");
     dot.className = "testimonial-slider__dot";
     dot.type = "button";
@@ -788,27 +851,30 @@ function wireTestimonialSlider(slider, track) {
     dot.addEventListener("click", function () { goTo(index); restart(); });
     nav.appendChild(dot);
   });
-  const dots = Array.from(nav.children);
+  st.dots = Array.from(nav.children);
 
   function goTo(index) {
-    current = (index + slides.length) % slides.length;
-    slides.forEach(function (s, i) { s.hidden = i !== current; });
-    dots.forEach(function (d, i) { d.setAttribute("aria-current", i === current ? "true" : "false"); });
+    if (!st.slides.length) return;
+    st.current = (index + st.slides.length) % st.slides.length;
+    st.slides.forEach(function (s, i) { s.hidden = i !== st.current; });
+    st.dots.forEach(function (d, i) { d.setAttribute("aria-current", i === st.current ? "true" : "false"); });
   }
-  function stop() { clearInterval(timer); timer = null; }
+  function stop() { clearInterval(st.timer); st.timer = null; }
   function restart() {
     stop();
-    if (!reduceMotion) timer = setInterval(function () { goTo(current + 1); }, 7000);
+    if (!reduceMotion) st.timer = setInterval(function () { goTo(st.current + 1); }, 7000);
   }
 
-  if (prev) prev.addEventListener("click", function () { goTo(current - 1); restart(); });
-  if (next) next.addEventListener("click", function () { goTo(current + 1); restart(); });
-
-  // Pause while the visitor is reading or interacting with it
-  slider.addEventListener("mouseenter", stop);
-  slider.addEventListener("mouseleave", restart);
-  slider.addEventListener("focusin", stop);
-  slider.addEventListener("focusout", restart);
+  if (!st.wired) {
+    st.wired = true;
+    if (prev) prev.addEventListener("click", function () { goTo(st.current - 1); restart(); });
+    if (next) next.addEventListener("click", function () { goTo(st.current + 1); restart(); });
+    // Pause while the visitor is reading or interacting with it
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", restart);
+    slider.addEventListener("focusin", stop);
+    slider.addEventListener("focusout", restart);
+  }
 
   goTo(0);
   restart();
@@ -876,26 +942,8 @@ async function initBookingForm() {
   const dateInput = form.querySelector('input[type="date"]');
   if (dateInput) dateInput.min = todayISO();
 
-  const [coursesData, settings] = await Promise.all([loadJSON("data/courses.json"), getSettings()]);
+  const settings = await getSettings();
   const waNumber = settings ? whatsappNumber(settings) : "";
-
-  // Fill "Course" options from courses.json and pre-select the course the
-  // visitor clicked "Enrol Now" on (passed as ?course=... in the link).
-  const courseSelect = form.querySelector("#course");
-  const courses = onlyPublished(coursesData);
-  if (courseSelect && courses.length) {
-    courseSelect.innerHTML = '<option value="">Select a course</option>' +
-      courses.map(function (c) {
-        const name = String(c.name).trim();
-        return '<option value="' + escapeHTML(name) + '">' + escapeHTML(name) + " — " + escapeHTML(c.price) + "</option>";
-      }).join("") +
-      '<option value="Not sure yet">Not sure yet — please advise me</option>';
-  }
-  const wanted = new URLSearchParams(window.location.search).get("course");
-  if (courseSelect && wanted) {
-    const match = Array.from(courseSelect.options).find(function (o) { return o.value === wanted; });
-    if (match) courseSelect.value = wanted;
-  }
 
   // Clear a field's error as soon as the visitor fixes it
   form.addEventListener("input", function (e) {
@@ -940,6 +988,24 @@ async function initBookingForm() {
       button.textContent = label;
     }
   });
+}
+
+// Fills the "Course" options from courses.json and pre-selects the course
+// the visitor clicked "Enrol Now" on (passed as ?course=... in the link).
+// Runs again on live updates, keeping whatever the visitor already chose.
+async function fillBookingOptions() {
+  const courseSelect = document.querySelector("[data-booking-form] #course");
+  if (!courseSelect) return;
+  const courses = onlyPublished(await loadJSON("data/courses.json"));
+  if (!courses.length) return;
+  const chosen = courseSelect.value || new URLSearchParams(window.location.search).get("course") || "";
+  courseSelect.innerHTML = '<option value="">Select a course</option>' +
+    courses.map(function (c) {
+      const name = String(c.name).trim();
+      return '<option value="' + escapeHTML(name) + '">' + escapeHTML(name) + " — " + escapeHTML(c.price) + "</option>";
+    }).join("") +
+    '<option value="Not sure yet">Not sure yet — please advise me</option>';
+  if (Array.from(courseSelect.options).some(function (o) { return o.value === chosen; })) courseSelect.value = chosen;
 }
 
 function isFieldValid(field) {
@@ -1211,4 +1277,77 @@ function registerServiceWorker() {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("sw.js").catch(function (err) { console.warn("Service worker not registered:", err); });
   });
+}
+
+
+/* =========================================================
+   11. LIVE UPDATES
+   ---------------------------------------------------------
+   Every time something is published from the admin (/admin),
+   data/version.json changes. Open pages check that one tiny
+   file every 30 seconds (and whenever the visitor comes back
+   to the tab). If it changed, the page re-draws its content in
+   place — no reload, no lost scroll position, no lost form
+   input — and shows a small "Updated just now" note.
+
+   The check is a conditional request: when nothing changed the
+   server answers "304 Not Modified" with no body, so it costs
+   almost nothing even with lots of visitors.
+   ========================================================= */
+let liveVersion = null;
+let liveChecking = false;
+
+async function fetchLiveVersion() {
+  const res = await fetch("data/version.json", { cache: "no-cache" });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data && data.updated ? data.updated : null;
+}
+
+async function checkForContentUpdates() {
+  if (document.hidden || liveChecking || !navigator.onLine) return;
+  liveChecking = true;
+  try {
+    const version = await fetchLiveVersion();
+    if (!version) return;
+    if (liveVersion === null) { liveVersion = version; return; }
+    if (version === liveVersion) return;
+    liveVersion = version;
+
+    // Forget the copies we already have, then redraw everything
+    revalidateData = true;
+    Object.keys(jsonCache).forEach(function (key) { delete jsonCache[key]; });
+    await renderAllContent();
+    showLiveToast();
+  } catch (err) {
+    // Offline or a hiccup — try again next time
+  } finally {
+    liveChecking = false;
+  }
+}
+
+function initLiveUpdates() {
+  checkForContentUpdates(); // remembers the version this page was drawn from
+  setInterval(checkForContentUpdates, 30 * 1000);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) checkForContentUpdates();
+  });
+  window.addEventListener("online", checkForContentUpdates);
+}
+
+function showLiveToast() {
+  let toast = document.getElementById("live-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "live-toast";
+    toast.className = "live-toast";
+    toast.setAttribute("role", "status");
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = '<span class="live-toast__dot"></span>Updated just now';
+  toast.classList.remove("is-visible");
+  void toast.offsetWidth; // restart the animation
+  toast.classList.add("is-visible");
+  clearTimeout(showLiveToast.timer);
+  showLiveToast.timer = setTimeout(function () { toast.classList.remove("is-visible"); }, 4000);
 }
