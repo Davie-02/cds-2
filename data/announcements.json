@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "test",
+      "date": "2026-09-28",
+      "body": "html",
+      "link": "",
+      "banner": false,
+      "expires": "",
+      "published": true
+    },
+    {
       "title": "September intake now open",
       "date": "2026-08-01",
       "body": "Our next Beginner Course intake starts 1 September. Spaces are limited to 15 learners per group — book early to secure a morning slot.",
