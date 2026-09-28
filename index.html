@@ -2,183 +2,250 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chimwemwe Driving School2 — Learn to Drive with Confidence</title>
-  <meta name="description" content="Chimwemwe Driving School2 offers beginner, refresher and defensive driving courses with certified instructors. Book your first lesson today." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chimwemwe Driving School2 — Driving Lessons in Mzuzu & Karonga</title>
+  <meta name="description" content="Chimwemwe Driving School2 offers motorcycle (A1), light vehicle (B) and heavy vehicle (C1, C, CE) driving courses in Mzuzu and Karonga, Malawi. Book your first lesson today." />
+  <meta name="theme-color" content="#1c2024" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chimwemwe Driving School2" />
+  <meta property="og:title" content="Chimwemwe Driving School2 — Driving Lessons in Mzuzu & Karonga" />
+  <meta property="og:description" content="Chimwemwe Driving School2 offers motorcycle (A1), light vehicle (B) and heavy vehicle (C1, C, CE) driving courses in Mzuzu and Karonga, Malawi. Book your first lesson today." />
+  <meta name="twitter:card" content="summary" />
+  <script>document.documentElement.className += " js";</script>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="data/settings.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/courses.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/announcements.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/testimonials.json" as="fetch" crossorigin />
+  <link rel="stylesheet" href="css/style.css?v=20260928" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script src="js/script.js?v=20260928" defer></script>
 </head>
-<body>
+<body data-home>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Site-wide banner — filled in from data/announcements.json (see renderAnnouncementBar) -->
+  <div class="announcement-bar" id="announcement-bar" hidden></div>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <img src="images/logo.png" alt="" width="66" height="48" class="brand__logo" />
         <span class="brand__text">
           Chimwemwe Driving School2
           <small>Home of Competent Drivers</small>
         </span>
       </a>
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav__links">
+      <nav class="nav__links" id="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Courses</a>
         <a href="instructors.html">Instructors</a>
+        <a href="theory-test.html">Theory Test</a>
         <a href="gallery.html">Gallery</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+        <a href="testimonials.html">Reviews</a>
+        <a href="contact.html#book" class="btn btn--dark">Book a Lesson</a>
       </nav>
     </div>
   </header>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="container hero__grid">
-      <div>
-        <span class="badge">Enrolling now — Mzuzu &amp; Karonga</span>
-        <h1>Your road to a licence starts with Chimwemwe.</h1>
-        <p class="lead">Patient, certified instructors. Modern dual-control cars. A structured course that takes you from your first turn of the key to passing your test — with confidence, not stress.</p>
-        <div class="hero__ctas">
-          <a href="contact.html" class="btn btn--primary">Book Your First Lesson</a>
-          <a href="services.html" class="btn btn--ghost">View Courses</a>
-        </div>
-        <div class="hero__stats">
-          <div class="hero__stat"><strong>5+</strong><span>Years teaching</span></div>
-          <div class="hero__stat"><strong>600+</strong><span>Licensed graduates</span></div>
-          <div class="hero__stat"><strong>94%</strong><span>First-time pass rate</span></div>
-        </div>
-      </div>
-      <div>
-        <!-- Signature visual: an animated dashed route from "Start" to "Licensed" -->
-        <svg class="route-path" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path class="route-line" d="M20 280 C 100 280, 60 180, 150 170 S 260 60, 340 60" />
-          <circle cx="20" cy="280" r="8" fill="#f5c344" />
-          <circle cx="340" cy="60" r="10" fill="#2f8f5b" />
-          <text x="10" y="304" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Lesson 1</text>
-          <text x="292" y="46" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Licensed</text>
-        </svg>
-      </div>
-    </div>
-  </section>
+  <main id="main">
 
-  <!-- ============ WHY CHOOSE US ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Why Chimwemwe</span>
-        <h2>Built around how people actually learn to drive.</h2>
-        <p>We keep class sizes small, lessons practical, and instructors patient — so nerves turn into confidence, not the other way around.</p>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div>
+          <span class="badge">Enrolling now — Mzuzu &amp; Karonga</span>
+          <h1>Your road to a licence starts with Chimwemwe.</h1>
+          <p class="lead">Patient, certified instructors. Modern dual-control cars. A structured course that takes you from your first turn of the key to passing your test — with confidence, not stress.</p>
+          <div class="hero__ctas">
+            <a href="contact.html#book" class="btn btn--primary">Book Your First Lesson</a>
+            <a href="services.html" class="btn btn--ghost">View Courses &amp; Prices</a>
+          </div>
+          <!-- Figures are editable in the CMS: Site Settings → Homepage statistics -->
+          <div class="hero__stats" data-stats>
+            <div class="hero__stat"><strong data-count="5+">5+</strong><span>Years teaching</span></div>
+            <div class="hero__stat"><strong data-count="600+">600+</strong><span>Licensed graduates</span></div>
+            <div class="hero__stat"><strong data-count="94%">94%</strong><span>First-time pass rate</span></div>
+          </div>
+        </div>
+        <div>
+          <!-- Signature visual: an animated dashed route from "Lesson 1" to "Licensed" -->
+          <svg class="route-path" viewBox="0 0 420 320" width="420" height="320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path class="route-line" d="M20 280 C 100 280, 60 180, 150 170 S 260 60, 340 60" />
+            <circle cx="20" cy="280" r="8" fill="#f5c344" />
+            <circle cx="340" cy="60" r="10" fill="#2f8f5b" />
+            <text x="10" y="304" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Lesson 1</text>
+            <text x="292" y="46" fill="#c7cad0" font-family="Inter, sans-serif" font-size="13">Licensed</text>
+          </svg>
+        </div>
       </div>
-      <div class="grid grid--4">
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
-          <h3>Certified instructors</h3>
-          <p>Every instructor is government-certified and trained specifically in defensive, learner-first teaching methods.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/></svg></div>
-          <h3>Dual-control vehicles</h3>
-          <p>Learn in well-maintained cars fitted with dual controls, so your instructor can step in if needed.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <h3>Flexible scheduling</h3>
-          <p>Morning, evening and weekend slots — book lessons around work, school or family commitments.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-          <h3>Real pass-rate results</h3>
-          <p>A structured curriculum aligned with the official road traffic test, so nothing you learn is wasted.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ COURSES PREVIEW ============ -->
-  <section class="section section--dark">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Courses</span>
-        <h2>Pick the course that matches where you're starting from.</h2>
-        <p>From absolute beginners to drivers who just need a refresher, there's a structured path for you.</p>
-      </div>
-      <!-- Populated from data/courses.json by js/script.js (renderCourses) -->
-      <div class="grid grid--3" data-courses></div>
-    </div>
-  </section>
-
-  <!-- ============ HOW IT WORKS ============ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The process</span>
-        <h2>Four steps from enquiry to licence.</h2>
-      </div>
-      <div class="steps">
-        <div class="step reveal">
-          <h3>Book a slot</h3>
-          <p>Fill in the contact form or call us to reserve your place on a course.</p>
+    <!-- ============ WHY CHOOSE US ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Why Chimwemwe</span>
+          <h2>Built around how people actually learn to drive.</h2>
+          <p>We keep class sizes small, lessons practical, and instructors patient — so nerves turn into confidence, not the other way around.</p>
         </div>
-        <div class="step reveal">
-          <h3>Theory class</h3>
-          <p>Learn road signs, right-of-way rules and the highway code in small groups.</p>
-        </div>
-        <div class="step reveal">
-          <h3>Practical lessons</h3>
-          <p>One-on-one time behind the wheel with your dedicated instructor.</p>
-        </div>
-        <div class="step reveal">
-          <h3>Test day</h3>
-          <p>Sit a mock test with us first, then take your official test with confidence.</p>
+        <div class="grid grid--4">
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+            <h3>Certified instructors</h3>
+            <p>Every instructor is government-certified and trained specifically in defensive, learner-first teaching methods.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 13l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6"/><path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/></svg></div>
+            <h3>Dual-control vehicles</h3>
+            <p>Learn in well-maintained cars fitted with dual controls, so your instructor can step in if needed.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3>Flexible scheduling</h3>
+            <p>Morning, evening and weekend slots — book lessons around work, school or family commitments.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>Real pass-rate results</h3>
+            <p>A structured curriculum aligned with the official road traffic test, so nothing you learn is wasted.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ LATEST NEWS ============ -->
-  <section class="section section--tight">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Latest News</span>
-        <h2>What's happening at Chimwemwe</h2>
+    <!-- ============ COURSES PREVIEW ============ -->
+    <section class="section section--dark">
+      <div class="container">
+        <div class="section-head section-head--split">
+          <div>
+            <span class="eyebrow eyebrow--light">Courses</span>
+            <h2>Pick the course that matches where you're starting from.</h2>
+            <p>From motorcycles to articulated trucks — every course includes theory classes, practical lessons and test preparation.</p>
+          </div>
+          <a class="link-arrow" href="services.html">Compare all courses</a>
+        </div>
+        <!-- Populated from data/courses.json by js/script.js (renderCourses) -->
+        <div class="grid grid--3" data-courses><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
       </div>
-      <!-- Populated from data/announcements.json by js/script.js (renderAnnouncements) -->
-      <div class="grid grid--3" id="announcements-list"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ TESTIMONIALS ============ -->
-  <section class="section section--tight">
-    <div class="container">
-      <div class="section-head text-center">
-        <span class="eyebrow">Testimonials</span>
-        <h2>What our graduates say</h2>
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">The process</span>
+          <h2>Four steps from enquiry to licence.</h2>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <h3>Book a slot</h3>
+            <p>Send a booking request online, WhatsApp us, or call to reserve your place on a course.</p>
+          </li>
+          <li class="step reveal">
+            <h3>Theory class</h3>
+            <p>Learn road signs, right-of-way rules and the highway code in small groups.</p>
+          </li>
+          <li class="step reveal">
+            <h3>Practical lessons</h3>
+            <p>One-on-one time behind the wheel with your dedicated instructor.</p>
+          </li>
+          <li class="step reveal">
+            <h3>Test day</h3>
+            <p>Sit a mock test with us first, then take your official test with confidence.</p>
+          </li>
+        </ol>
       </div>
-      <!-- Populated from data/testimonials.json by js/script.js (renderTestimonials) -->
-      <div class="testimonial-slider">
-        <div class="testimonial-slider__track"></div>
-        <div class="testimonial-slider__nav"></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ CTA BAND ============ -->
-  <div class="cta-band">
-    <div class="container">
-      <div>
-        <h3>Ready to get on the road?</h3>
-        <p>Spaces for our next intake are limited.</p>
+    <!-- ============ THEORY TEST PROMO ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="promo">
+          <div>
+            <span class="eyebrow eyebrow--light">Free for everyone</span>
+            <h2>How well do you know the road rules?</h2>
+            <p>Take our free practice theory test — instant feedback on every answer, with explanations, on any phone.</p>
+            <a href="theory-test.html" class="btn btn--primary">Take the practice test</a>
+          </div>
+          <div class="promo__signs">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="30,4 70,4 96,30 96,70 70,96 30,96 4,70 4,30" fill="#c94f3d" stroke="#fff" stroke-width="4"/><text x="50" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="24" fill="#fff">STOP</text></svg>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 96,90 4,90" fill="#fff" stroke="#c94f3d" stroke-width="9" stroke-linejoin="round"/><text x="50" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="40" fill="#1c2024">!</text></svg>
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="#fff" stroke="#c94f3d" stroke-width="10"/><text x="50" y="63" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="34" fill="#1c2024">50</text></svg>
+          </div>
+        </div>
       </div>
-      <a href="contact.html" class="btn btn--dark">Book Your First Lesson</a>
-    </div>
-  </div>
+    </section>
+
+    <!-- ============ LATEST NEWS ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Latest News</span>
+          <h2>What's happening at Chimwemwe</h2>
+        </div>
+        <!-- Populated from data/announcements.json by js/script.js (renderAnnouncements) -->
+        <div class="grid grid--3" id="announcements-list"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section section--tight section--dim">
+      <div class="container">
+        <div class="section-head text-center">
+          <span class="eyebrow">Testimonials</span>
+          <h2>What our graduates say</h2>
+          <p class="rating-summary" data-rating-summary hidden></p>
+        </div>
+        <!-- Populated from data/testimonials.json by js/script.js (renderTestimonials) -->
+        <div class="testimonial-slider" aria-roledescription="carousel" aria-label="Student testimonials">
+          <div class="testimonial-slider__track" aria-live="polite"></div>
+          <div class="testimonial-slider__controls">
+            <button type="button" class="testimonial-slider__arrow" data-slide-prev aria-label="Previous testimonial">&#8249;</button>
+            <div class="testimonial-slider__nav"></div>
+            <button type="button" class="testimonial-slider__arrow" data-slide-next aria-label="Next testimonial">&#8250;</button>
+          </div>
+        </div>
+        <p class="text-center mt-3"><a class="link-arrow" href="testimonials.html">Read all reviews</a></p>
+      </div>
+    </section>
+
+    <!-- ============ BRANCHES ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Our branches</span>
+          <h2>Two branches, one standard of teaching.</h2>
+        </div>
+        <!-- Populated from the Branches list in data/settings.json (renderBranches) -->
+        <div class="grid grid--2" data-branches>
+          <article class="card card--static branch-card"><h3>Mzuzu Branch</h3><p>Mzuzu, Malawi</p></article>
+          <article class="card card--static branch-card"><h3>Karonga Branch</h3><p>Old town roundabout, Karonga, Malawi</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA BAND ============ -->
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h3>Ready to get on the road?</h3>
+          <p>Spaces for our next intake are limited.</p>
+        </div>
+        <div class="cta-band__actions">
+          <a href="contact.html#book" class="btn btn--dark">Book Your First Lesson</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
@@ -187,7 +254,9 @@
         <div>
           <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
           <span class="tagline">Home of Competent Drivers</span>
-          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga since 1992.</p>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga.</p>
+          <!-- Social icons appear here once links are added in Site Settings -->
+          <div class="footer__social" id="footer-social"></div>
         </div>
         <div>
           <h4>Explore</h4>
@@ -199,52 +268,45 @@
           </ul>
         </div>
         <div>
-          <h4>Support</h4>
+          <h4>Learners</h4>
           <ul>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="theory-test.html">Practice Theory Test</a></li>
             <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="testimonials.html">Student Reviews</a></li>
             <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h4>Contact</h4>
-          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <!-- Re-filled from data/settings.json by js/script.js (renderFooterContact) -->
           <ul id="footer-contact">
-            <li>Karonga, Malawi</li>
-            <li>+265 999 118 292</li>
-            <li><a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information."
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  class="whatsapp-button">WhatsApp Us</a></li>
-            <li>chimwemwedrivingschool0@gmail.com</li>
+            <li>Mzuzu Branch · Karonga Branch</li>
+            <li><a href="tel:+265999118292">+265 999 118 292</a></li>
+            <li><a href="https://wa.me/265999118292" target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href="mailto:chimwemwedrivingschool0@gmail.com">chimwemwedrivingschool0@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2026 Chimwemwe Driving School2. All rights reserved.</span>
+        <span>&copy; <span data-year>2026</span> Chimwemwe Driving School2. All rights reserved.</span>
       </div>
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
-
   <!--
-    Netlify Identity widget — only needed to support the /admin content
-    manager's login flow (specifically, invite/password-reset email links
-    that land here first). It does nothing visible on this page for a
-    normal visitor. See README section "6. Managing content with the CMS".
+    Netlify Identity — only needed for the /admin content manager's login
+    emails (invites / password resets land on the homepage). It's loaded
+    ONLY when such a link is opened, instead of for every visitor, which
+    keeps the homepage fast.
   -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function (user) {
-        if (!user) {
-          window.netlifyIdentity.on("login", function () {
-            document.location.href = "/admin/";
-          });
-        }
-      });
+    if (/(invite|recovery|confirmation|email_change)_token|access_token/.test(location.hash)) {
+      var s = document.createElement("script");
+      s.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
+      s.onload = function () {
+        window.netlifyIdentity.on("login", function () { document.location.href = "/admin/"; });
+      };
+      document.head.appendChild(s);
     }
   </script>
 </body>

@@ -2,106 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About Us — Chimwemwe Driving School2</title>
-  <meta name="description" content="Learn about Chimwemwe Driving School2's mission, history and values." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="description" content="Learn about Chimwemwe Driving School2's mission, history and values — patient, safety-first driving instruction in Mzuzu and Karonga." />
+  <meta name="theme-color" content="#1c2024" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chimwemwe Driving School2" />
+  <meta property="og:title" content="About Us — Chimwemwe Driving School2" />
+  <meta property="og:description" content="Learn about Chimwemwe Driving School2's mission, history and values — patient, safety-first driving instruction in Mzuzu and Karonga." />
+  <meta name="twitter:card" content="summary" />
+  <script>document.documentElement.className += " js";</script>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="data/settings.json" as="fetch" crossorigin />
+  <link rel="stylesheet" href="css/style.css?v=20260928" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script src="js/script.js?v=20260928" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Site-wide banner — filled in from data/announcements.json (see renderAnnouncementBar) -->
+  <div class="announcement-bar" id="announcement-bar" hidden></div>
+
+  <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <img src="images/logo.png" alt="" width="66" height="48" class="brand__logo" />
         <span class="brand__text">
           Chimwemwe Driving School2
           <small>Home of Competent Drivers</small>
         </span>
       </a>
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav__links">
+      <nav class="nav__links" id="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Courses</a>
         <a href="instructors.html">Instructors</a>
+        <a href="theory-test.html">Theory Test</a>
         <a href="gallery.html">Gallery</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+        <a href="testimonials.html">Reviews</a>
+        <a href="contact.html#book" class="btn btn--dark">Book a Lesson</a>
       </nav>
     </div>
   </header>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">About Us</span>
-      <h1>Teaching Malawi to drive safely since 1992.</h1>
-      <p>Chimwemwe — meaning "joy" in Chichewa — was founded on a simple idea: learning to drive should feel encouraging, not intimidating.</p>
-    </div>
-  </section>
+  <main id="main">
 
-  <section class="section">
-    <div class="container grid grid--2" style="align-items:center;">
-      <div>
-        <span class="eyebrow">Our story</span>
-        <h2>From one instructor to a full school.</h2>
-        <p>Chimwemwe Driving School2 began in 1992 with a single instructor, a single car, and a waiting list that kept growing by word of mouth. Parents wanted an instructor patient enough for nervous first-timers; professionals wanted a course that fit around a working week.</p>
-        <div class="road-divider"></div>
-        <p>Today we run two branches, a small fleet of dual-control vehicles, and a curriculum built around Malawi's official road traffic test — but the same philosophy from day one still holds: every learner moves at their own pace, and every instructor is trained to teach with patience first.</p>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow eyebrow--light">About Us</span>
+        <h1>Teaching Malawi to drive safely.</h1>
+      <p>Chimwemwe — meaning “joy” in Chichewa — was founded on a simple idea: learning to drive should feel encouraging, not intimidating.</p>
       </div>
-      <div>
-        <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80" alt="Instructor and student reviewing a driving lesson beside a car" style="border-radius:10px;" />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section--dark">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">What we stand for</span>
-        <h2>Our values on and off the road.</h2>
-      </div>
-      <div class="grid grid--3">
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg></div>
-          <h3>Safety first</h3>
-          <p>Every lesson plan is built around defensive driving, not just passing a test.</p>
+    <section class="section">
+      <div class="container grid grid--2 align-center">
+        <div>
+          <span class="eyebrow">Our story</span>
+          <h2>From one instructor to a full school.</h2>
+          <p>Chimwemwe Driving School2 began with a single instructor, a single car, and a waiting list that kept growing by word of mouth. Parents wanted an instructor patient enough for nervous first-timers; professionals wanted a course that fit around a working week.</p>
+          <div class="road-divider"></div>
+          <p>Today we run two branches, a small fleet of dual-control vehicles, and a curriculum built around Malawi's official road traffic test — but the same philosophy from day one still holds: every learner moves at their own pace, and every instructor is trained to teach with patience first.</p>
         </div>
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg></div>
-          <h3>Patience always</h3>
-          <p>Nervous learners and confident ones alike get the same respect and pace.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-          <h3>Honest progress</h3>
-          <p>We tell you exactly where you stand — no false confidence before test day.</p>
+        <div>
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=70&w=800&h=600" srcset="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=70&w=400&h=300 400w, https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=70&w=800&h=600 800w, https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=70&w=1600&h=1200 1600w" sizes="(max-width: 960px) 100vw, 50vw" width="800" height="600" alt="Instructor and student reviewing a driving lesson beside a car" loading="lazy" decoding="async" class="rounded" />
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="container text-center" style="max-width:640px;">
-      <span class="eyebrow">Join us</span>
-      <h2>Meet the team behind every lesson.</h2>
-      <p>Every instructor is licensed, background-checked, and trained in our teaching method.</p>
-      <a href="instructors.html" class="btn btn--primary" style="margin-top:1rem;">Meet Our Instructors</a>
-    </div>
-  </section>
+    <section class="section section--dark">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow eyebrow--light">What we stand for</span>
+          <h2>Our values on and off the road.</h2>
+        </div>
+        <div class="grid grid--3">
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg></div>
+            <h3>Safety first</h3>
+            <p>Every lesson plan is built around defensive driving, not just passing a test.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg></div>
+            <h3>Patience always</h3>
+            <p>Nervous learners and confident ones alike get the same respect and pace.</p>
+          </div>
+          <div class="card reveal">
+            <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+            <h3>Honest progress</h3>
+            <p>We tell you exactly where you stand — no false confidence before test day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="section">
+      <div class="container text-center" style="max-width:640px;">
+        <span class="eyebrow">Join us</span>
+        <h2>Meet the team behind every lesson.</h2>
+        <p>Every instructor is licensed, background-checked, and trained in our teaching method.</p>
+        <a href="instructors.html" class="btn btn--primary mt-2">Meet Our Instructors</a>
+      </div>
+    </section>
+
+    <!-- ============ CTA BAND ============ -->
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h3>Ready to start learning?</h3>
+          <p>Book online in two minutes — we'll confirm by phone or WhatsApp.</p>
+        </div>
+        <div class="cta-band__actions">
+          <a href="contact.html#book" class="btn btn--dark">Book Your First Lesson</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer__grid">
         <div>
           <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
           <span class="tagline">Home of Competent Drivers</span>
-          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga since 1992.</p>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga.</p>
+          <!-- Social icons appear here once links are added in Site Settings -->
+          <div class="footer__social" id="footer-social"></div>
         </div>
         <div>
           <h4>Explore</h4>
@@ -113,30 +148,29 @@
           </ul>
         </div>
         <div>
-          <h4>Support</h4>
+          <h4>Learners</h4>
           <ul>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="theory-test.html">Practice Theory Test</a></li>
             <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="testimonials.html">Student Reviews</a></li>
             <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h4>Contact</h4>
-          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <!-- Re-filled from data/settings.json by js/script.js (renderFooterContact) -->
           <ul id="footer-contact">
-            <li>Karonga, Malawi</li>
-            <li>+265 999 118 292</li>
-            <li>chimwemwedrivingschool0@gmail.com</li>
+            <li>Mzuzu Branch · Karonga Branch</li>
+            <li><a href="tel:+265999118292">+265 999 118 292</a></li>
+            <li><a href="https://wa.me/265999118292" target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href="mailto:chimwemwedrivingschool0@gmail.com">chimwemwedrivingschool0@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2026 Chimwemwe Driving School2. All rights reserved.</span>
+        <span>&copy; <span data-year>2026</span> Chimwemwe Driving School2. All rights reserved.</span>
       </div>
     </div>
   </footer>
-
-  <script src="js/script.js"></script>
 </body>
 </html>

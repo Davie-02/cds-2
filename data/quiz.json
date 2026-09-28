@@ -1,0 +1,162 @@
+{
+  "settings": {
+    "questions_per_test": 10,
+    "pass_mark_percent": 80
+  },
+  "items": [
+    {
+      "question": "On which side of the road do vehicles drive in Malawi?",
+      "options": ["The right-hand side", "The left-hand side", "Either side, as long as you are careful", "The middle of the road"],
+      "correct": 2,
+      "explanation": "Malawi drives on the left. Keep to the left-hand side of the road unless you are overtaking or turning.",
+      "published": true
+    },
+    {
+      "question": "What must you do at a red, eight-sided (octagonal) STOP sign?",
+      "options": ["Slow down and continue if the road looks clear", "Stop only if other traffic is coming", "Come to a complete stop, then go only when it is safe", "Hoot and proceed"],
+      "correct": 3,
+      "explanation": "A STOP sign always requires a complete stop at the line, even when the road looks empty. Move off only when it is safe.",
+      "published": true
+    },
+    {
+      "question": "Road signs shaped as a triangle with a red border usually…",
+      "options": ["Give an order you must obey", "Warn you of a hazard ahead", "Give directions to a town", "Show a parking area"],
+      "correct": 2,
+      "explanation": "Triangular signs with a red border are warning signs — for example a sharp bend, a school or a pedestrian crossing ahead.",
+      "published": true
+    },
+    {
+      "question": "Round signs with a red border usually…",
+      "options": ["Tell you what you must NOT do", "Give information about services", "Warn you about road works", "Show the route to a hospital"],
+      "correct": 1,
+      "explanation": "Circular signs with a red ring are prohibitory — e.g. no entry, no overtaking or a speed limit.",
+      "published": true
+    },
+    {
+      "question": "A pedestrian is waiting to cross at a zebra crossing. What should you do?",
+      "options": ["Speed up to pass before they step out", "Hoot to warn them to wait", "Slow down and stop to let them cross", "Flash your lights and drive on"],
+      "correct": 3,
+      "explanation": "Be ready to stop and give way to pedestrians at a zebra crossing. Never wave or hoot them across — another vehicle might not stop.",
+      "published": true
+    },
+    {
+      "question": "What is a safe minimum following distance behind the vehicle in front on a dry road?",
+      "options": ["Half a second", "At least a two-second gap", "One car length at any speed", "As close as possible so others can't cut in"],
+      "correct": 2,
+      "explanation": "Leave at least a two-second gap in good conditions, and at least double that on wet or dusty roads.",
+      "published": true
+    },
+    {
+      "question": "How does a wet road affect your stopping distance?",
+      "options": ["It makes no difference", "It becomes shorter", "It can be up to twice as long", "Only heavy vehicles are affected"],
+      "correct": 3,
+      "explanation": "Tyres have less grip on wet roads, so stopping distances can double. Slow down and leave a bigger gap.",
+      "published": true
+    },
+    {
+      "question": "A traffic light changes from green to steady amber as you approach. What should you do?",
+      "options": ["Accelerate to get through before red", "Stop, unless you are so close that stopping would be unsafe", "Hoot and continue", "Stop immediately, even if a vehicle is right behind you"],
+      "correct": 2,
+      "explanation": "Amber means stop. Only continue if you have already crossed the stop line or are so close that stopping could cause a collision.",
+      "published": true
+    },
+    {
+      "question": "When should you use your indicators?",
+      "options": ["Only when a police officer is present", "In good time before changing direction or lane", "After you have finished turning", "Only at night"],
+      "correct": 2,
+      "explanation": "Signal clearly and early so other road users know what you intend to do — then check it is safe before you move.",
+      "published": true
+    },
+    {
+      "question": "Before moving off from the side of the road, you should…",
+      "options": ["Check your mirrors and blind spot, and signal if needed", "Just check the rear-view mirror", "Hoot and pull out quickly", "Rely on other drivers to let you in"],
+      "correct": 1,
+      "explanation": "Mirrors alone don't show everything. Look over your shoulder to check the blind spot before you pull out.",
+      "published": true
+    },
+    {
+      "question": "What is a vehicle's 'blind spot'?",
+      "options": ["An area around the car you cannot see in your mirrors", "A dark part of the road at night", "A spot where parking is prohibited", "The area directly in front of the bonnet"],
+      "correct": 1,
+      "explanation": "Blind spots are areas not covered by your mirrors — usually over your shoulders. Always check them before changing lanes or moving off.",
+      "published": true
+    },
+    {
+      "question": "When driving on the left, on which side should you normally overtake another vehicle?",
+      "options": ["On the left", "On the right", "On whichever side has more space", "On the shoulder of the road"],
+      "correct": 2,
+      "explanation": "Overtake on the right, and only when you can see the road ahead is clear and it is legal to do so.",
+      "published": true
+    },
+    {
+      "question": "You are dazzled by the headlights of an oncoming vehicle at night. What should you do?",
+      "options": ["Switch on your own full beam", "Look towards the left edge of the road and slow down", "Close your eyes briefly", "Speed up to pass it quickly"],
+      "correct": 2,
+      "explanation": "Slow down (stop if necessary) and look towards the left-hand edge of the road until your eyes recover.",
+      "published": true
+    },
+    {
+      "question": "An ambulance with flashing lights and a siren is coming up behind you. What should you do?",
+      "options": ["Stop immediately in your lane", "Speed up to stay ahead of it", "Move over to the left safely and let it pass", "Ignore it unless it hoots"],
+      "correct": 3,
+      "explanation": "Help emergency vehicles get past by moving to the left when it is safe — don't brake suddenly or mount a pavement dangerously.",
+      "published": true
+    },
+    {
+      "question": "When should you use your hazard warning lights?",
+      "options": ["When parking illegally for a short time", "When your vehicle has broken down and is causing an obstruction", "To thank another driver", "When driving in heavy rain"],
+      "correct": 2,
+      "explanation": "Hazard lights warn others that your vehicle is stationary and a hazard — for example after a breakdown.",
+      "published": true
+    },
+    {
+      "question": "Who in a vehicle should wear a seat belt?",
+      "options": ["Only the driver", "Only front-seat passengers", "Everyone, wherever seat belts are fitted", "Only on long journeys"],
+      "correct": 3,
+      "explanation": "Seat belts save lives in the front and the back. Make sure every occupant is buckled up before you move off.",
+      "published": true
+    },
+    {
+      "question": "How does alcohol affect your driving?",
+      "options": ["It improves concentration", "It slows your reactions and impairs your judgement", "It has no effect in small amounts", "It only affects night driving"],
+      "correct": 2,
+      "explanation": "Even small amounts of alcohol slow your reactions and make you over-confident. The safest choice is not to drink at all if you are driving.",
+      "published": true
+    },
+    {
+      "question": "You need to make an urgent phone call while driving. What should you do?",
+      "options": ["Hold the phone between your ear and shoulder", "Make the call while driving slowly", "Find a safe place, stop, and then make the call", "Send a text message instead"],
+      "correct": 3,
+      "explanation": "Using a phone while driving is a major cause of crashes. Pull over safely and stop before using it.",
+      "published": true
+    },
+    {
+      "question": "You see a warning sign for a school ahead. What should you do?",
+      "options": ["Hoot to warn children", "Reduce speed and watch out for children", "Keep your speed, the sign is only for weekends", "Overtake slower vehicles before the school"],
+      "correct": 2,
+      "explanation": "Children can be unpredictable. Slow down and be ready to stop near schools.",
+      "published": true
+    },
+    {
+      "question": "Before a long journey, which of these should you check?",
+      "options": ["Tyre pressure and tread", "Oil and coolant levels", "Lights and indicators", "All of the above"],
+      "correct": 4,
+      "explanation": "A quick check of tyres, fluids and lights before a long trip helps prevent breakdowns and crashes.",
+      "published": true
+    },
+    {
+      "question": "When entering a roundabout, you should normally…",
+      "options": ["Give way to traffic already on the roundabout", "Enter quickly before other vehicles", "Expect traffic on the roundabout to give way to you", "Stop in the middle of the roundabout"],
+      "correct": 1,
+      "explanation": "Give way to traffic already on the roundabout (coming from your right) unless road markings or signs tell you otherwise.",
+      "published": true
+    },
+    {
+      "question": "Why should you avoid driving when you are very tired?",
+      "options": ["It uses more fuel", "Your reactions and concentration are reduced", "It is only a problem on motorways", "Tiredness has no effect on driving"],
+      "correct": 2,
+      "explanation": "Fatigue slows reactions like alcohol does. On long trips, take a break at least every two hours.",
+      "published": true
+    }
+  ]
+}

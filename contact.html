@@ -2,156 +2,224 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact &amp; Booking — Chimwemwe Driving School2</title>
-  <meta name="description" content="Book your first driving lesson or get in touch with Chimwemwe Driving School2." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book a Lesson & Contact — Chimwemwe Driving School2</title>
+  <meta name="description" content="Book driving lessons online, or call, WhatsApp or visit Chimwemwe Driving School2 in Mzuzu and Karonga." />
+  <meta name="theme-color" content="#1c2024" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chimwemwe Driving School2" />
+  <meta property="og:title" content="Book a Lesson & Contact — Chimwemwe Driving School2" />
+  <meta property="og:description" content="Book driving lessons online, or call, WhatsApp or visit Chimwemwe Driving School2 in Mzuzu and Karonga." />
+  <meta name="twitter:card" content="summary" />
+  <script>document.documentElement.className += " js";</script>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="data/settings.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/courses.json" as="fetch" crossorigin />
+  <link rel="stylesheet" href="css/style.css?v=20260928" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script src="js/script.js?v=20260928" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Site-wide banner — filled in from data/announcements.json (see renderAnnouncementBar) -->
+  <div class="announcement-bar" id="announcement-bar" hidden></div>
+
+  <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <img src="images/logo.png" alt="" width="66" height="48" class="brand__logo" />
         <span class="brand__text">
           Chimwemwe Driving School2
           <small>Home of Competent Drivers</small>
         </span>
       </a>
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav__links">
+      <nav class="nav__links" id="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Courses</a>
         <a href="instructors.html">Instructors</a>
+        <a href="theory-test.html">Theory Test</a>
         <a href="gallery.html">Gallery</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+        <a href="testimonials.html">Reviews</a>
+        <a href="contact.html#book" class="btn btn--dark">Book a Lesson</a>
       </nav>
     </div>
   </header>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Contact</span>
-      <h1>Let's get you booked in.</h1>
-      <p>Fill in the form below, call us, or visit either branch. We usually reply within one business day.</p>
-    </div>
-  </section>
+  <main id="main">
 
-  <section class="section">
-    <div class="container grid grid--2" style="align-items:flex-start;">
-
-      <!-- ================= CONTACT FORM ================= -->
-      <div class="card">
-        <h2 style="margin-bottom:1rem;">Book a lesson</h2>
-
-        <!--
-          FORM SETUP (read this if you're customising the site):
-          This form posts to Formspree, a free form-backend service —
-          perfect for a static site with no server of its own.
-          1. Go to https://formspree.io and create a free account
-          2. Create a new form, copy the endpoint it gives you
-             (it looks like https://formspree.io/f/abcd1234)
-          3. Replace YOUR_FORM_ID below with that endpoint
-          Until you do, the form will just show a "demo mode" message
-          instead of actually sending anywhere — see js/script.js.
-        -->
-        <form action="https://formspree.io/f/meajenvz" method="POST" data-validate novalidate>
-          <div class="field">
-            <label for="name">Full name</label>
-            <input type="text" id="name" name="name" placeholder="e.g. Grace Mwale" required />
-            <small class="error">Please enter your full name.</small>
-          </div>
-
-          <div class="field">
-            <label for="email">Email address</label>
-            <input type="email" id="email" name="email" placeholder="e.g. grace@email.com" required />
-            <small class="error">Please enter a valid email address.</small>
-          </div>
-
-          <div class="field">
-            <label for="phone">Phone number</label>
-            <input type="tel" id="phone" name="phone" placeholder="e.g. 0999 123 456" required />
-            <small class="error">Please enter a valid phone number.</small>
-          </div>
-
-          <div class="field">
-            <label for="course">Course interested in</label>
-            <select id="course" name="course" required>
-              <option value="">Select a course</option>
-              <option>A1 (Motorcycle)</option>
-              <option>B (Light Vehicle)</option>
-              <option>C1 (Heavy Vehicle)</option>
-              <option>C (Truck with trailer)</option>
-              <option>CE (Truck with trailer)</option>
-            </select>
-            <small class="error">Please choose a course.</small>
-          </div>
-
-          <div class="field">
-            <label for="branch">Preferred branch</label>
-            <select id="branch" name="branch" required>
-              <option value="">Select a branch</option>
-              <option>Karonga — Old town roundabout</option>
-              <option>Mzuzu — Masasa, near road traffic</option>
-            </select>
-            <small class="error">Please choose a branch.</small>
-          </div>
-
-          <div class="field">
-            <label for="message">Message (optional)</label>
-            <textarea id="message" name="message" placeholder="Tell us about your schedule, experience level, or any questions."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--block">Send Booking Request</button>
-          <p class="form-note">We'll reply by email or phone within one business day to confirm your first lesson.</p>
-        </form>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow eyebrow--light">Contact</span>
+        <h1>Let's get you booked in.</h1>
+      <p>Send a booking request below, WhatsApp us, or visit either branch. We usually reply within one business day.</p>
       </div>
+    </section>
 
-      <!-- ================= LOCATION / DETAILS ================= -->
-      <div>
-        <h2 style="margin-bottom:1rem;">Visit or call us</h2>
-        <div class="card" style="margin-bottom:1rem;">
-          <h3>Mzuzu Branch</h3>
-          <p>Masasa,near road traffic, Mzuzu, Malawi</p>
-          <p>+265 999 118 292</p>
-          <a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-button">WhatsApp Us</a>
-          <p>Mon–Sat, 7:00–17:00</p>
+    <section class="section">
+      <div class="container grid grid--2 align-start">
+
+        <!-- ================= BOOKING FORM ================= -->
+        <div class="card card--static" id="book">
+          <h2 style="margin-bottom:1rem;">Book a lesson</h2>
+
+          <!--
+            FORM SETUP: this form sends to Formspree (https://formspree.io),
+            a free form-backend service that emails each booking to the
+            school. To use your own Formspree form, replace the action URL
+            below. js/script.js sends it in the background and shows a
+            thank-you message, or a WhatsApp fallback if sending fails.
+          -->
+          <form action="https://formspree.io/f/meajenvz" method="POST" data-booking-form novalidate>
+            <input type="hidden" name="_subject" value="New booking request — website" />
+            <div class="field field--hp" aria-hidden="true">
+              <label for="website">Leave this empty</label>
+              <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="e.g. Grace Mwale" required data-summary="Name" />
+              <small class="error">Please enter your full name.</small>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="phone">Phone / WhatsApp number</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="e.g. 0999 123 456" required data-summary="Phone" />
+                <small class="error">Please enter a valid phone number.</small>
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="optional">(optional)</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="e.g. grace@email.com" data-summary="Email" />
+                <small class="error">Please enter a valid email address.</small>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="course">Course</label>
+              <!-- Options are filled in from data/courses.json -->
+              <select id="course" name="course" required data-summary="Course">
+                <option value="">Select a course</option>
+                <option>A1 Motorcycle License Course</option>
+                <option>Code B (Light motor Vehicle) Driving License Course</option>
+                <option>C1 (Heavy Goods Vehicle Driving License Course)</option>
+                <option>C (Heavy Goods Vehicle Driving License Course)</option>
+                <option>CE (Heavy Goods Vehicle Driving License Course)</option>
+                <option>Not sure yet — please advise me</option>
+              </select>
+              <small class="error">Please choose a course.</small>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="branch">Preferred branch</label>
+                <!-- Options are filled in from the Branches list in data/settings.json -->
+                <select id="branch" name="branch" required data-summary="Branch">
+                  <option value="">Select a branch</option>
+                  <option>Mzuzu Branch</option>
+                  <option>Karonga Branch</option>
+                </select>
+                <small class="error">Please choose a branch.</small>
+              </div>
+              <div class="field">
+                <label for="time">Preferred lesson time</label>
+                <select id="time" name="preferred_time" data-summary="Preferred time">
+                  <option value="">Any time</option>
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Weekday evening (17:30–18:30)</option>
+                  <option>Saturday</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="start">Preferred start date <span class="optional">(optional)</span></label>
+                <input type="date" id="start" name="start_date" data-summary="Start date" />
+              </div>
+              <div class="field">
+                <label for="experience">Driving experience</label>
+                <select id="experience" name="experience" data-summary="Experience">
+                  <option value="">Select one</option>
+                  <option>Complete beginner</option>
+                  <option>Some practice / learner's licence</option>
+                  <option>Licensed — upgrading to another class</option>
+                  <option>Licensed — need a refresher</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="message">Message <span class="optional">(optional)</span></label>
+              <textarea id="message" name="message" placeholder="Your schedule, questions, or a preferred instructor." data-summary="Message"></textarea>
+            </div>
+
+            <div class="field field--check">
+              <label for="consent">
+                <input type="checkbox" id="consent" name="consent" value="yes" required />
+                <span>I agree to be contacted about my booking. See our <a href="page.html?slug=privacy-policy">privacy policy</a>.</span>
+              </label>
+              <small class="error">Please tick this box so we can contact you.</small>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block">Send Booking Request</button>
+            <div class="form-alt">
+              <span>Prefer chatting?</span>
+              <button type="button" class="btn btn--whatsapp btn--sm" data-whatsapp-booking>Send via WhatsApp instead</button>
+            </div>
+            <p class="form-note">We'll reply by phone, WhatsApp or email within one business day to confirm your first lesson.</p>
+          </form>
         </div>
-        <div class="card" style="margin-bottom:1rem;">
-          <h3>Karonga Branch</h3>
-          <p>Old town roundabout, Karonga, Malawi</p>
-          <p>+265 999 118 292</p>
-          <a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-button">WhatsApp Us</a>
-          <p>Mon–Sat, 7:00–17:00</p>
-        </div>
-        <div class="card">
-          <h3>Find us on the map</h3>
-          <iframe
-            title="Map showing Chimwemwe Driving School2 Karonga branch"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=33.75%2C-13.99%2C33.80%2C-13.94&layer=mapnik"
-            style="width:100%; height:260px; border:0; border-radius:8px; margin-top:0.5rem;"
-            loading="lazy">
-          </iframe>
+
+        <!-- ================= BRANCHES / MAP ================= -->
+        <div id="branches">
+          <h2 style="margin-bottom:1rem;">Visit or call us</h2>
+          <!-- Populated from the Branches list in data/settings.json (renderBranches) -->
+          <div class="grid" data-branches>
+            <article class="card card--static branch-card">
+              <h3>Mzuzu Branch</h3>
+              <p>Mzuzu, Malawi · Mon–Sat, 7:00–17:00</p>
+              <p><a href="tel:+265999118292">+265 999 118 292</a></p>
+            </article>
+            <article class="card card--static branch-card">
+              <h3>Karonga Branch</h3>
+              <p>Old town roundabout, Karonga, Malawi · Mon–Sat, 7:00–17:00</p>
+              <p><a href="tel:+265999118292">+265 999 118 292</a></p>
+            </article>
+          </div>
+          <div class="card card--static mt-2">
+            <h3>Find us on the map</h3>
+            <div class="map-facade">
+              <button type="button" class="btn btn--primary"
+                data-load-map="https://www.openstreetmap.org/export/embed.html?bbox=33.75%2C-13.99%2C33.80%2C-13.94&amp;layer=mapnik"
+                data-title="Map showing the Karonga branch">Show map (Karonga)</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer__grid">
         <div>
           <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
           <span class="tagline">Home of Competent Drivers</span>
-          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga  since 1992.</p>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga.</p>
+          <!-- Social icons appear here once links are added in Site Settings -->
+          <div class="footer__social" id="footer-social"></div>
         </div>
         <div>
           <h4>Explore</h4>
@@ -163,31 +231,29 @@
           </ul>
         </div>
         <div>
-          <h4>Support</h4>
+          <h4>Learners</h4>
           <ul>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="theory-test.html">Practice Theory Test</a></li>
             <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="testimonials.html">Student Reviews</a></li>
             <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h4>Contact</h4>
-          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <!-- Re-filled from data/settings.json by js/script.js (renderFooterContact) -->
           <ul id="footer-contact">
-            <li>Karonga, Malawi</li>
-            <li>+265 999 118 292</li>
-            <li><a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-button">WhatsApp Us</a></li>
-            <li>chimwemwedrivingschool0@gmail.com</li>
+            <li>Mzuzu Branch · Karonga Branch</li>
+            <li><a href="tel:+265999118292">+265 999 118 292</a></li>
+            <li><a href="https://wa.me/265999118292" target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href="mailto:chimwemwedrivingschool0@gmail.com">chimwemwedrivingschool0@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2026 Chimwemwe Driving School2. All rights reserved.</span>
+        <span>&copy; <span data-year>2026</span> Chimwemwe Driving School2. All rights reserved.</span>
       </div>
     </div>
   </footer>
-
-  <script src="js/script.js"></script>
 </body>
 </html>

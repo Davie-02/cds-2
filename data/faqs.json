@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "question": "How long does a course take?",
+      "answer": "Most learners complete a course in 6–10 weeks, depending on how many lessons per week you book. There's no fixed deadline — you move at your own pace.",
+      "published": true
+    },
+    {
+      "question": "Do I need a learner's permit before starting?",
+      "answer": "No — we guide new learners through applying for a learner's permit as part of the course.",
+      "published": true
+    },
+    {
+      "question": "How long is each practical lesson?",
+      "answer": "Practical lessons on the Code B course are 30 minutes each day. Check each course on the [Courses page](services.html) for exactly what's included.",
+      "published": true
+    },
+    {
+      "question": "Do you offer evening lessons?",
+      "answer": "Yes. Our Karonga and Mzuzu branches offer 17:30–18:30 lessons on weekdays for learners who work during the day.",
+      "published": true
+    },
+    {
+      "question": "Can I switch instructors if it's not a good fit?",
+      "answer": "Yes, absolutely. Just let our office know and we'll pair you with another instructor at no extra cost.",
+      "published": true
+    },
+    {
+      "question": "What happens if I fail my official test?",
+      "answer": "Standard course students get one free re-test preparation lesson. We'll also help you rebook your test date.",
+      "published": true
+    },
+    {
+      "question": "How can I prepare for the theory test at home?",
+      "answer": "Try our free [practice theory test](theory-test.html) — it gives you instant feedback and explains every answer.",
+      "published": true
+    },
+    {
+      "question": "Where are your branches?",
+      "answer": "We have branches in Mzuzu and Karonga. See the [Contact page](contact.html) for addresses, phone numbers, opening hours and directions.",
+      "published": true
+    }
+  ]
+}

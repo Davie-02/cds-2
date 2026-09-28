@@ -9,27 +9,42 @@
     "accent_color": "#c94f3d"
   },
   "contact": {
-    "phone_primary": "+265 999 123 456",
-    "phone_secondary": "+265 888 654 321",
+    "phone_primary": "+265 999 118 292",
+    "phone_secondary": "",
+    "whatsapp": "+265 999 118 292",
     "email": "chimwemwedrivingschool0@gmail.com"
   },
   "branches": [
     {
       "name": "Mzuzu Branch",
       "address": "Mchenga Utuwa, Mzuzu, Malawi",
-      "phone": "+265 999 123 456",
+      "phone": "+265 999 118 292",
       "hours": "Mon–Sat, 7:00–17:00"
     },
     {
       "name": "Karonga Branch",
       "address": "Old town roundabout, Karonga, Malawi",
-      "phone": "+265 888 654 321",
+      "phone": "+265 999 118 292",
       "hours": "Mon–Sat, 7:00–17:00"
     }
   ],
   "social": {
     "facebook": "",
     "instagram": "",
-    "whatsapp": "<a href=\"https://wa.me/265991383466\" target=\"_blank\" rel=\"noopener noreferrer\">     WhatsApp Us </a>"
-  }
+    "tiktok": ""
+  },
+  "stats": [
+    {
+      "value": "5+",
+      "label": "Years teaching"
+    },
+    {
+      "value": "600+",
+      "label": "Licensed graduates"
+    },
+    {
+      "value": "94%",
+      "label": "First-time pass rate"
+    }
+  ]
 }

@@ -74,7 +74,8 @@ collections:
             widget: "object"
             fields:
               - { label: "Primary phone", name: "phone_primary", widget: "string" }
-              - { label: "Secondary phone", name: "phone_secondary", widget: "string" }
+              - { label: "Secondary phone", name: "phone_secondary", widget: "string", required: false }
+              - { label: "WhatsApp number (used by every WhatsApp button)", name: "whatsapp", widget: "string", required: false, hint: "Include the country code, e.g. +265 999 118 292" }
               - { label: "Email address", name: "email", widget: "string" }
           - label: "Branches"
             name: "branches"
@@ -93,7 +94,17 @@ collections:
             fields:
               - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
               - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
-              - { label: "WhatsApp link", name: "whatsapp", widget: "string", required: false }
+              - { label: "TikTok URL", name: "tiktok", widget: "string", required: false }
+          - label: "Homepage statistics"
+            name: "stats"
+            widget: "list"
+            required: false
+            label_singular: "Statistic"
+            summary: "{{value}} {{label}}"
+            hint: "The figures under the homepage headline, e.g. 600+ Licensed graduates. Numbers count up when shown."
+            fields:
+              - { label: "Figure (e.g. 600+ or 94%)", name: "value", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
 
   # -------------------------------------------------------------
   # PAGES — create brand-new pages (Privacy Policy, Terms, a special
@@ -140,6 +151,9 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
               - { label: "Body (Markdown supported: **bold**, lists, etc.)", name: "body", widget: "markdown" }
+              - { label: "\"Read more\" link (optional)", name: "link", widget: "string", required: false, hint: "e.g. page.html?slug=offer or services.html" }
+              - { label: "Show as site-wide banner", name: "banner", widget: "boolean", default: false, required: false, hint: "Shows the title in a yellow bar at the top of every page (newest banner wins)." }
+              - { label: "Expires on (optional)", name: "expires", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false, hint: "The post (and banner) disappear automatically after this date — ideal for special offers." }
               - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this post without deleting it." }
 
   # -------------------------------------------------------------
@@ -229,3 +243,55 @@ collections:
                 name: "features"
                 widget: "list"
               - { label: "Published", name: "published", widget: "boolean", default: true, hint: "Turn off to hide this course without deleting it." }
+
+  # -------------------------------------------------------------
+  # FAQS — the questions on the Courses page
+  # -------------------------------------------------------------
+  - name: "faqs"
+    label: "❓ FAQs"
+    files:
+      - name: "faqs"
+        label: "FAQs"
+        file: "data/faqs.json"
+        fields:
+          - label: "Questions"
+            name: "items"
+            widget: "list"
+            label_singular: "Question"
+            summary: "{{question}}"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer (Markdown supported)", name: "answer", widget: "markdown" }
+              - { label: "Published", name: "published", widget: "boolean", default: true }
+
+  # -------------------------------------------------------------
+  # THEORY TEST — questions for the free practice test
+  # (theory-test.html). Each test picks a random set of these.
+  # -------------------------------------------------------------
+  - name: "quiz"
+    label: "🚦 Theory Test Questions"
+    files:
+      - name: "quiz"
+        label: "Theory Test"
+        file: "data/quiz.json"
+        fields:
+          - label: "Test settings"
+            name: "settings"
+            widget: "object"
+            fields:
+              - { label: "Questions per test", name: "questions_per_test", widget: "number", value_type: "int", min: 1, default: 10 }
+              - { label: "Pass mark (%)", name: "pass_mark_percent", widget: "number", value_type: "int", min: 1, max: 100, default: 80 }
+          - label: "Questions"
+            name: "items"
+            widget: "list"
+            label_singular: "Question"
+            summary: "{{question}}"
+            fields:
+              - { label: "Question", name: "question", widget: "text" }
+              - label: "Answer options"
+                name: "options"
+                widget: "list"
+                field: { label: "Option", name: "option", widget: "string" }
+              - { label: "Correct option number (1 = first option)", name: "correct", widget: "number", value_type: "int", min: 1, max: 8 }
+              - { label: "Explanation (shown after answering)", name: "explanation", widget: "text", required: false }
+              - { label: "Published", name: "published", widget: "boolean", default: true }

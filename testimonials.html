@@ -2,70 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Testimonials — Chimwemwe Driving School2</title>
-  <meta name="description" content="Read what graduates of Chimwemwe Driving School2 say about their lessons and results." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Reviews — Chimwemwe Driving School2</title>
+  <meta name="description" content="Read what graduates say about learning to drive with Chimwemwe Driving School2." />
+  <meta name="theme-color" content="#1c2024" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chimwemwe Driving School2" />
+  <meta property="og:title" content="Student Reviews — Chimwemwe Driving School2" />
+  <meta property="og:description" content="Read what graduates say about learning to drive with Chimwemwe Driving School2." />
+  <meta name="twitter:card" content="summary" />
+  <script>document.documentElement.className += " js";</script>
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="data/settings.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/testimonials.json" as="fetch" crossorigin />
+  <link rel="stylesheet" href="css/style.css?v=20260928" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script src="js/script.js?v=20260928" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Site-wide banner — filled in from data/announcements.json (see renderAnnouncementBar) -->
+  <div class="announcement-bar" id="announcement-bar" hidden></div>
+
+  <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" alt="Chimwemwe Driving School2 logo" class="brand__logo" />
+        <img src="images/logo.png" alt="" width="66" height="48" class="brand__logo" />
         <span class="brand__text">
           Chimwemwe Driving School2
           <small>Home of Competent Drivers</small>
         </span>
       </a>
-      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav__links">
+      <nav class="nav__links" id="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Courses</a>
         <a href="instructors.html">Instructors</a>
+        <a href="theory-test.html">Theory Test</a>
         <a href="gallery.html">Gallery</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html" class="btn btn--dark">Book a Lesson</a>
+        <a href="testimonials.html">Reviews</a>
+        <a href="contact.html#book" class="btn btn--dark">Book a Lesson</a>
       </nav>
     </div>
   </header>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow" style="background:rgba(245,195,68,0.15); color:var(--color-line);">Testimonials</span>
-      <h1>3,400+ graduates. Here's what a few of them say.</h1>
-    </div>
-  </section>
+  <main id="main">
 
-  <section class="section">
-    <!-- Populated from data/testimonials.json by js/script.js (renderTestimonialsGrid) -->
-    <div class="container grid grid--3" id="testimonials-grid"></div>
-  </section>
-
-  <div class="cta-band">
-    <div class="container">
-      <div>
-        <h3>Ready to write your own success story?</h3>
-        <p>Join our next intake this month.</p>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow eyebrow--light">Testimonials</span>
+        <h1>Hundreds of graduates. Here's what a few of them say.</h1>
       </div>
-      <a href="contact.html" class="btn btn--dark">Book Your First Lesson</a>
-    </div>
-  </div>
+    </section>
 
+    <section class="section">
+      <div class="container">
+        <p class="rating-summary" data-rating-summary hidden style="display:flex; justify-content:flex-start; margin-bottom:1.5rem;"></p>
+        <!-- Populated from data/testimonials.json by js/script.js (renderTestimonialsGrid) -->
+        <div class="grid grid--3" id="testimonials-grid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+      </div>
+    </section>
+
+    <!-- ============ CTA BAND ============ -->
+    <section class="cta-band">
+      <div class="container">
+        <div>
+          <h3>Ready to write your own success story?</h3>
+          <p>Join our next intake this month.</p>
+        </div>
+        <div class="cta-band__actions">
+          <a href="contact.html#book" class="btn btn--dark">Book Your First Lesson</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer__grid">
         <div>
           <h4 style="margin-bottom:0.2em;">Chimwemwe Driving School2</h4>
           <span class="tagline">Home of Competent Drivers</span>
-          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Lilongwe and Blantyre since 2013.</p>
+          <p style="margin-top:0.6em;">Teaching safe, confident drivers across Mzuzu and Karonga.</p>
+          <!-- Social icons appear here once links are added in Site Settings -->
+          <div class="footer__social" id="footer-social"></div>
         </div>
         <div>
           <h4>Explore</h4>
@@ -77,31 +106,29 @@
           </ul>
         </div>
         <div>
-          <h4>Support</h4>
+          <h4>Learners</h4>
           <ul>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact &amp; Booking</a></li>
+            <li><a href="theory-test.html">Practice Theory Test</a></li>
             <li><a href="services.html#faq">FAQs</a></li>
+            <li><a href="testimonials.html">Student Reviews</a></li>
             <li><a href="page.html?slug=privacy-policy">Privacy Policy</a></li>
           </ul>
         </div>
         <div>
           <h4>Contact</h4>
-          <!-- Populated from data/settings.json by js/script.js (renderFooterContact) -->
+          <!-- Re-filled from data/settings.json by js/script.js (renderFooterContact) -->
           <ul id="footer-contact">
-            <li>Karonga, Malawi</li>
-            <li>+265 999 118 292</li>
-            <li>chimwemwedrivingschool0@gmail.com</li>
-            <li><a href="https://wa.me/265999118292?text=Hello%2C%20I%20would%20like%20more%20information." target="_blank" rel="noopener noreferrer" class="whatsapp-button">WhatsApp Us</a></li>
+            <li>Mzuzu Branch · Karonga Branch</li>
+            <li><a href="tel:+265999118292">+265 999 118 292</a></li>
+            <li><a href="https://wa.me/265999118292" target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href="mailto:chimwemwedrivingschool0@gmail.com">chimwemwedrivingschool0@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; 2026 Chimwemwe Driving School2. All rights reserved.</span>
+        <span>&copy; <span data-year>2026</span> Chimwemwe Driving School2. All rights reserved.</span>
       </div>
     </div>
   </footer>
-
-  <script src="js/script.js"></script>
 </body>
 </html>

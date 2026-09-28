@@ -29,34 +29,67 @@ should be: **one CSS file, one JS file, plain HTML pages.**
 ```
 cds-2/
 ├── index.html            Home page
-├── about.html             About Us page
+├── about.html             About Us
 ├── services.html          Courses & pricing + FAQ
 ├── instructors.html       Meet the instructors
-├── gallery.html            Photo gallery
-├── testimonials.html       Full testimonials page
-├── contact.html            Contact form + map
-├── page.html                Generic template for CMS-created custom pages
-├── css/
-│   └── style.css            ALL styling for every page (one shared file)
-├── js/
-│   └── script.js             ALL interactivity + content rendering (one shared file)
-├── data/                     Editable content, as JSON — this is what the CMS edits
-│   ├── settings.json          Site branding, theme colours, contact info
-│   ├── testimonials.json
-│   ├── instructors.json
-│   ├── gallery.json
-│   ├── courses.json
-│   ├── announcements.json
-│   └── pages/                 One JSON file per custom page (e.g. privacy-policy.json)
-├── admin/                    The /admin content manager (Decap CMS)
-│   ├── index.html
-│   └── config.yml
-├── images/
-│   ├── logo.png                The school's logo (transparent background)
-│   ├── favicon.png              Browser tab icon
-│   └── uploads/                  Photos uploaded through the CMS land here automatically
-└── README.md                  This file
+├── theory-test.html       Free practice theory test
+├── gallery.html           Photo gallery (tap a photo to enlarge)
+├── testimonials.html      Student reviews
+├── contact.html           Booking form + branches + map
+├── page.html              Generic template for CMS-created custom pages
+├── 404.html               "Page not found" page (Netlify uses it automatically)
+├── offline.html           Shown when a visitor has no connection
+├── sw.js                  Service worker — offline support + instant repeat visits
+├── manifest.webmanifest   Makes the site installable on phones ("Add to Home screen")
+├── netlify.toml           Caching + security headers for Netlify
+├── robots.txt
+├── css/style.css          ALL styling for every page (one shared file)
+├── js/script.js           ALL interactivity + content rendering (one shared file)
+├── js/vendor/             Markdown library, stored locally (no third-party CDN)
+├── fonts/                 Self-hosted Inter + Sora fonts
+├── data/                  Editable content, as JSON — this is what the CMS edits
+│   ├── settings.json      Branding, colours, phone/WhatsApp, branches, homepage stats
+│   ├── courses.json, instructors.json, gallery.json, testimonials.json
+│   ├── announcements.json News posts (optional expiry date + site-wide banner)
+│   ├── faqs.json          FAQ questions on the Courses page
+│   ├── quiz.json          Theory test questions
+│   └── pages/             One JSON file per custom page (e.g. privacy-policy.json)
+├── admin/                 The /admin content manager (Decap CMS)
+└── images/                Logo, icons, and CMS uploads (images/uploads/)
 ```
+
+### Features at a glance
+- **Online booking** — course and branch lists fill in automatically from the
+  CMS; "Enrol Now" on a course pre-selects it; sent in the background with a
+  thank-you screen; spam honeypot; and a **"Send via WhatsApp"** option that
+  pre-fills everything the visitor typed (also offered automatically if sending fails).
+- **Free practice theory test** — random questions, instant feedback with
+  explanations, score + review of mistakes, best score remembered.
+  Questions are edited in the CMS ("🚦 Theory Test Questions").
+- **Mobile action bar** — Call / WhatsApp / Book always one tap away on phones.
+- **Branch cards** with click-to-call, WhatsApp and Google Maps directions.
+- **Site-wide announcement banner** and **auto-expiring offers** (News posts).
+- **Gallery lightbox**, testimonial slider with average rating, native FAQ accordion.
+- **SEO**: descriptive titles/descriptions, social-sharing tags, and
+  `DrivingSchool` structured data (from settings.json) for Google local results.
+- **Accessibility**: skip link, keyboard-friendly menu/FAQ/lightbox, focus
+  styles, reduced-motion support.
+
+### Why it's fast (and handles heavy traffic)
+- Plain static files on Netlify's CDN — there is no server that can be overloaded.
+- Fonts and the Markdown library are self-hosted; the Netlify Identity script
+  only loads for CMS invite/reset links, not for every visitor.
+- Each data file is fetched once per page and preloaded in the `<head>`;
+  scripts use `defer`, so nothing blocks the first paint.
+- Images are lazy-loaded and sized for the visitor's screen (Unsplash photos
+  are requested at the exact width, in WebP/AVIF). The logo went from 152 KB to 6 KB.
+- The map only loads when a visitor presses "Show map".
+- The service worker makes repeat visits near-instant and keeps pages working
+  on weak mobile connections.
+
+**When you edit `css/style.css` or `js/script.js`:** bump the `?v=` number in
+every page's `<head>` and in `sw.js` (`VERSION` + `CORE_FILES`), so browsers
+pick up the new file straight away.
 
 ---
 
@@ -113,20 +146,11 @@ section by name, e.g. "HERO" or "FOOTER".
   below.
 
 ### `js/script.js`
-Seven independent features, each in its own function, each only running
-if its element exists on the current page:
-1. **Mobile nav toggle** — the hamburger menu on small screens.
-2. **Active page highlight** — the current page's nav link gets a yellow underline.
-3. **Scroll reveal** — cards fade/slide in as you scroll, using `IntersectionObserver`.
-4. **Testimonial slider** — the rotating quote carousel on the home page.
-5. **FAQ accordion** — the expanding questions on the Courses page.
-6. **Form validation** — checks required fields and email/phone format before letting a booking form submit.
-7. **Floating WhatsApp button** — reads the phone number from `data/settings.json` and adds one sticky chat button to every page, so there's only one place to update the number.
-
-Below those, a shared set of helper functions load JSON, escape user
-text (so CMS input can never break the page), render Markdown, and read
-`data/settings.json` to theme the whole site (colours, logo, favicon,
-footer contact details) from one file.
+Organised in numbered sections (see the comment at the top of the file):
+shared helpers, navigation, site settings, news/banner, courses/FAQs/
+branches/instructors/gallery, testimonials, the booking form, the theory
+test, custom pages and offline support. Every feature only runs if its
+element exists on the current page, so one file serves every page.
 
 **Why one shared CSS file and one shared JS file, instead of per-page
 files?** For a site this size, one file is easier to search, easier to
@@ -178,15 +202,13 @@ how each collection is configured.
    announcement) — plain HTML can't discover new pages automatically, so
    this one link is the only manual step.
 
-### Wiring up the contact form
-The contact form submits to [Formspree](https://formspree.io) so the
-site can "send" real emails without a backend:
-1. Create a free account at formspree.io.
-2. Create a form, copy the endpoint URL it gives you.
-3. Paste it into the `action="..."` attribute of the `<form>` tag in
-   `contact.html`.
-Until you do this, submitting the form just shows a "demo mode" message
-— your code still gets to run and validate, nothing breaks.
+### The booking form
+The booking form submits to [Formspree](https://formspree.io) so the
+site can "send" real emails without a backend. The endpoint is the
+`action="..."` attribute of the `<form>` in `contact.html`.
+**Note:** Formspree's free plan accepts a limited number of submissions
+per month. If bookings get busy, upgrade the plan — and visitors can always
+use the "Send via WhatsApp" button on the form in the meantime.
 
 ---
 

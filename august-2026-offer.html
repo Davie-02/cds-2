@@ -217,6 +217,14 @@
             <a href="javascript:history.back()">Back to Previous Page</a>
         </nav>
 
+        <!-- Shown automatically once the offer's end date has passed -->
+        <p id="offer-ended" hidden style="background:#fdecea; color:#a53d2d; border:1px solid #f3c1b9; padding:12px 18px; border-radius:8px; margin-bottom:20px;">
+            This offer ended on 31 August 2026. <a href="services.html" style="color:inherit; font-weight:700;">See current courses and prices</a>.
+        </p>
+        <script>
+            if (new Date() > new Date("2026-09-01T00:00:00")) document.getElementById("offer-ended").hidden = false;
+        </script>
+
         <article class="offer">
 
             <header class="header">

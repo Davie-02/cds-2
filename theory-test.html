@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Our Instructors — Chimwemwe Driving School2</title>
-  <meta name="description" content="Meet the certified, patient driving instructors at Chimwemwe Driving School2 in Mzuzu and Karonga." />
+  <title>Free Practice Theory Test — Chimwemwe Driving School2</title>
+  <meta name="description" content="Free driving theory practice test for Malawi learners: road signs, rules of the road and safe driving questions with instant feedback and explanations." />
   <meta name="theme-color" content="#1c2024" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Chimwemwe Driving School2" />
-  <meta property="og:title" content="Our Instructors — Chimwemwe Driving School2" />
-  <meta property="og:description" content="Meet the certified, patient driving instructors at Chimwemwe Driving School2 in Mzuzu and Karonga." />
+  <meta property="og:title" content="Free Practice Theory Test — Chimwemwe Driving School2" />
+  <meta property="og:description" content="Free driving theory practice test for Malawi learners: road signs, rules of the road and safe driving questions with instant feedback and explanations." />
   <meta name="twitter:card" content="summary" />
   <script>document.documentElement.className += " js";</script>
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="data/settings.json" as="fetch" crossorigin />
-  <link rel="preload" href="data/instructors.json" as="fetch" crossorigin />
+  <link rel="preload" href="data/quiz.json" as="fetch" crossorigin />
   <link rel="stylesheet" href="css/style.css?v=20260928" />
   <link rel="icon" type="image/png" href="images/favicon.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
@@ -58,30 +58,18 @@
 
     <section class="page-hero">
       <div class="container">
-        <span class="eyebrow eyebrow--light">Instructors</span>
-        <h1>Certified instructors, chosen for patience.</h1>
-      <p>Every instructor at Chimwemwe passes a road-skills assessment and a teaching-style interview before joining our team.</p>
+        <span class="eyebrow eyebrow--light">Practice Theory Test</span>
+        <h1>Test your road knowledge — free.</h1>
+      <p>Road signs, rules of the road and safe-driving questions, with an explanation for every answer. Works on any phone, and there's no sign-up.</p>
       </div>
     </section>
 
     <section class="section">
-      <!-- Populated from data/instructors.json by js/script.js (renderInstructors) -->
-      <div class="container grid grid--4" id="instructors-grid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
-    </section>
-
-    <section class="section section--dark">
-      <div class="container grid grid--2 align-center">
-        <div>
-          <span class="eyebrow eyebrow--light">Our standard</span>
-          <h2>How we train the trainers.</h2>
-          <p>Before ever sitting beside a learner, every instructor completes 40 hours of internal training covering hazard perception, communication under stress, and how to give feedback that builds confidence instead of anxiety.</p>
-        </div>
-        <div class="grid grid--2" style="gap:1rem;">
-          <div class="card stat-card reveal"><h3>40hrs</h3><p>Internal instructor training</p></div>
-          <div class="card stat-card reveal"><h3>100%</h3><p>Government-licensed instructors</p></div>
-          <div class="card stat-card reveal"><h3>4.9/5</h3><p>Average student rating</p></div>
-          <div class="card stat-card reveal"><h3>Annual</h3><p>Re-certification &amp; refresher training</p></div>
-        </div>
+      <div class="container">
+        <!-- The whole test is built by js/script.js (initTheoryTest) from data/quiz.json -->
+        <div class="quiz" id="quiz"><div class="skeleton"></div></div>
+        <noscript><p class="text-center">The practice test needs JavaScript switched on.</p></noscript>
+        <p class="form-note text-center" style="max-width:640px;">This practice test covers general road-safety knowledge to help you prepare. It is not the official Road Traffic Directorate test — our theory classes cover the full highway code.</p>
       </div>
     </section>
 
@@ -89,8 +77,8 @@
     <section class="cta-band">
       <div class="container">
         <div>
-          <h3>Want to be paired with a specific instructor?</h3>
-          <p>Let us know your preference in the message box when you book.</p>
+          <h3>Want expert help passing first time?</h3>
+          <p>Our theory classes cover the full highway code in small groups.</p>
         </div>
         <div class="cta-band__actions">
           <a href="contact.html#book" class="btn btn--dark">Book Your First Lesson</a>
