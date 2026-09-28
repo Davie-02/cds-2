@@ -1,0 +1,19 @@
+{
+  "name": "Chimwemwe Driving School2",
+  "short_name": "Chimwemwe",
+  "description": "Driving lessons in Mzuzu and Karonga — courses, booking and a free practice theory test.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fafaf8",
+  "theme_color": "#1c2024",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Book a lesson", "url": "./contact.html#book" },
+    { "name": "Practice theory test", "url": "./theory-test.html" },
+    { "name": "Courses & prices", "url": "./services.html" }
+  ]
+}

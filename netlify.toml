@@ -1,0 +1,57 @@
+# =====================================================================
+# NETLIFY SETTINGS — caching + security headers
+# ---------------------------------------------------------------------
+# The site is plain static files, served from Netlify's global CDN, so
+# it can take very large traffic spikes without any server to overload.
+# These rules tell browsers and the CDN how long they may keep each type
+# of file, so repeat visitors re-download as little as possible.
+# There is no build step: Netlify publishes the repo folder as-is.
+# =====================================================================
+
+[build]
+  publish = "."
+
+# Security headers for every response
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Strict-Transport-Security = "max-age=31536000"
+
+# Fonts and the version-numbered Markdown library never change — cache for a year
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images: keep for a week, refresh quietly in the background after that
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+# Content edited in the CMS must show up straight away — always revalidate
+# (cheap: unchanged files come back as a tiny "304 Not Modified")
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# The service worker must always be checked for updates
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
