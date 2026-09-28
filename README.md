@@ -18,7 +18,7 @@ should be: **one CSS file, one JS file, plain HTML pages.**
 | Structure | HTML5 | The foundation of every website. |
 | Styling | CSS3 (custom properties, Flexbox, Grid) | Modern CSS covers everything a framework like Bootstrap used to be needed for. |
 | Interactivity | Vanilla JavaScript (ES6+) | No React/Vue needed for a site this size. |
-| Content | JSON files in `/data`, edited via a free CMS at `/admin` | Lets a non-technical person update text, prices, and photos without touching code. |
+| Content | JSON files in `/data`, edited in the custom admin at `/admin` | Lets a non-technical person update text, prices, and photos without touching code. |
 | Forms | [Formspree](https://formspree.io) (free tier) | Lets a static site "send" real emails with zero backend code. |
 | Hosting | GitHub Pages / Netlify / Vercel (all free) | Static files deploy in minutes, with free HTTPS. |
 
@@ -53,8 +53,10 @@ cds-2/
 │   ├── announcements.json News posts (optional expiry date + site-wide banner)
 │   ├── faqs.json          FAQ questions on the Courses page
 │   ├── quiz.json          Theory test questions
+│   ├── version.json       Updated on every admin publish — open pages watch it
 │   └── pages/             One JSON file per custom page (e.g. privacy-policy.json)
-├── admin/                 The /admin content manager (Decap CMS)
+├── admin/                 Custom content manager (index.html, admin.js, admin.css)
+│   └── decap/             Backup Decap CMS editor (same login)
 └── images/                Logo, icons, and CMS uploads (images/uploads/)
 ```
 
@@ -180,13 +182,49 @@ Every page's dynamic content lives in a `/data/*.json` file:
 | Site name, colours, phone, branches | `data/settings.json` |
 | A one-off custom page (e.g. a promo page) | add a `.json` file in `data/pages/` |
 
-You can edit these files by hand in any text editor, or through the
-**visitor-friendly CMS at `/admin`** (Decap CMS), which turns each field
-into a form — no JSON syntax to worry about. See `admin/config.yml` for
-how each collection is configured.
+You can edit these files by hand, but the easy way is the **admin at
+`/admin`**.
+
+### The admin (`/admin`)
+A custom, lightweight content manager built for this site — one small
+HTML/CSS/JS app, no framework, no build step. It covers everything:
+site settings (name, logo, colours, phones, branches, homepage figures,
+social links), courses & prices, news & offers (with site-wide banner and
+auto-expiry), reviews, instructors, gallery (bulk photo upload), FAQs,
+theory-test questions, and extra pages.
+
+- **Login:** Netlify Identity — invitation only.
+- **Publishing:** "Publish changes" (or Ctrl/Cmd + S) saves every edited
+  file plus any new images in **one commit** to `main` through Netlify's
+  Git Gateway. Netlify redeploys in seconds, and the admin shows
+  "Going live… → Live ✓" once the change is actually on the site.
+- **Live site:** every publish also updates `data/version.json`. Open pages
+  check it every 30 seconds (and when the visitor returns to the tab) and
+  redraw their content in place — no reload, and nothing the visitor has
+  typed is lost.
+- **Images** are resized and converted to WebP in the browser before
+  upload, so a 5 MB phone photo ends up around 200 KB.
+- **Safety:** required-field checks, "Discard changes", a warning before
+  leaving with unpublished work, and a warning if someone else changed the
+  same content since you opened it.
+- **Try it safely:** open `http://localhost:8000/admin/` while running the
+  site locally — it runs in *local preview mode* (no login, nothing is
+  saved to GitHub).
+
+To add a new editable field, add it to the `COLLECTIONS` list near the top
+of `admin/admin.js` — the forms build themselves from that list.
+
+**One-time Netlify setup** (already done if Decap worked before):
+1. Netlify → Site configuration → **Identity** → Enable Identity.
+2. Set **Registration** to *Invite only*, then invite each editor by email.
+3. Identity → **Services** → Enable **Git Gateway**.
+
+A backup Decap CMS editor remains at `/admin/decap/` (same login). Edits
+made there go through Decap's review workflow and don't update
+`data/version.json`, so open pages show them on their next load.
 
 ### Adding a brand-new custom page
-1. In the CMS (or by hand), create `data/pages/your-slug.json`:
+1. In the admin (Pages → New), or by hand, create `data/pages/your-slug.json`:
    ```json
    {
      "title": "Your Page Title",

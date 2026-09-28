@@ -1,6 +1,13 @@
 # =====================================================================
-# DECAP CMS CONFIGURATION — Chimwemwe Driving School2
+# DECAP CMS CONFIGURATION — Chimwemwe Driving School2  (BACKUP EDITOR)
 # ---------------------------------------------------------------------
+# The main content manager is now the custom admin at /admin (see
+# admin/admin.js). This Decap setup is kept at /admin/decap/ as a backup
+# editor using the same Netlify Identity login. Note: edits made here are
+# published through Decap's review workflow and don't trigger the site's
+# instant "live update" signal (data/version.json) — visitors see them on
+# their next page load.
+#
 # This file tells the /admin content manager what content exists and
 # what fields/editing tools to show for each. Every collection below
 # points at a JSON file in /data, which is what the website's
