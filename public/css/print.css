@@ -1,0 +1,74 @@
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  color: #1c2024;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.letterhead {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: 3px solid #1c2024;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+.letterhead img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+.letterhead h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.letterhead p {
+  margin: 0.25rem 0 0;
+  color: #55595e;
+  font-size: 0.9rem;
+}
+.parties {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+.parties p {
+  margin: 0.2rem 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+td:last-child,
+th:last-child {
+  text-align: right;
+}
+.note {
+  color: #55595e;
+  font-style: italic;
+}
+button {
+  padding: 0.6rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+@media print {
+  .no-print {
+    display: none;
+  }
+  body {
+    margin: 0;
+  }
+}

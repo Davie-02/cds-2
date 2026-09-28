@@ -1,0 +1,57 @@
+{
+  "name": "chimwemwe-driving-school",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n server,admin \"npm:dev:server\" \"npm:dev:admin\"",
+    "dev:server": "tsx watch --env-file-if-exists=.env src/server/index.ts",
+    "dev:admin": "vite",
+    "build": "npm run build:server && npm run build:admin",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:admin": "vite build",
+    "start": "node --env-file-if-exists=.env dist/server/index.js",
+    "migrate": "node --env-file-if-exists=.env dist/server/db/migrate.js",
+    "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.admin.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/formbody": "^9.0.0",
+    "@fastify/multipart": "^10.1.2",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/static": "^10.1.5",
+    "fastify": "^5.12.5",
+    "marked": "^18.0.14",
+    "nodemailer": "^10.0.12",
+    "pg": "^8.23.0",
+    "sanitize-html": "^2.17.7",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/sanitize-html": "^2.16.1",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "prettier": "^3.9.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}
